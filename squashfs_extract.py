@@ -7,7 +7,7 @@ import struct
 
 def find_squashfs(filename):
     # Squashfs filesystem, little endian, version 4.0, compression:xz
-    magic = '68 73 71 73 ** 01 00 00 ** ** ** 65 00 00 04 00 ** 00 00 00 04 00 12 00 C0 ** 01 00 04 00 00 00 ** ** ** ** 00 00 00 00 ** ** ** 00 00 00 00 00 ** ** ** 00 00 00 00 00 FF FF FF FF FF FF FF FF'
+    magic = '68 73 71 73 ** 01 00 00 ** ** ** ** 00 00 04 00 ** 00 00 00 04 00 ** 00 ** ** 01 00 04 00 00 00 ** ** ** ** 00 00 00 00 ** ** ** 00 00 00 00 00 ** ** ** 00 00 00 00 00 FF FF FF FF FF FF FF FF'
     hex_bytes_list = magic.replace(' ','').split('**')
     first_bytes = bytes.fromhex(hex_bytes_list[0])
     squashfs_files_list = []
