@@ -116,7 +116,7 @@ def main():
         elif user_input == 'C':
             print('squashfs 格式的 rootfs 回写')
             rootfs_image_path = input(f'请输入待回写的 squashfs 格式的 rootfs 镜像文件:')
-            target_image_path = input(f'请输入回写目标文件(编程器固件/mtd4分区文件:)')                            
+            target_image_path = input(f'请输入回写目标文件(编程器固件/mtd4分区文件):')
             zxic_firmware_tools.repack_firmware(rootfs_image_path, target_image_path)
             continue_any_key()
 
@@ -128,21 +128,21 @@ def main():
 
         elif user_input == '2':
             print('替换默认配置')
-            target_image_path = input(f'请输入目标配置目录:)')    
+            target_image_path = input(f'请输入目标配置目录:')
             nv_replace.main(os.path.join(output_path, rootfs_path_name))
             continue_any_key()
 
         elif user_input == '3':
             print('2 个配置文件对比')
 
-            source_config_file = input(f'请输入来源配置文件路径:)')
-            target_config_file = input(f'请输入目标配置文件路径:)')
+            source_config_file = input(f'请输入来源配置文件路径:')
+            target_config_file = input(f'请输入目标配置文件路径:')
             nv_compare.main(source_config_file, target_config_file)
             continue_any_key()
 
         elif user_input == '4':
             print('配置项排序')
-            target_image_path = input(f'请输入目标配置文件路径:)')
+            target_image_path = input(f'请输入目标配置文件路径:')
             nv_sort.print_sorted_config(target_image_path)
             continue_any_key()
 
