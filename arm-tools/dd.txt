@@ -1,0 +1,18 @@
+adb push mtd4.new /tmp
+
+adb push dd /tmp
+
+adb shell
+alias ll='ls -lha'
+cd /tmp
+
+
+chmod +x /tmp/dd
+fota_release_space.sh
+
+/tmp/dd if=/tmp/mtd4.new of=/dev/mtdblock4 conv=fsync
+
+md5sum /tmp/mtd4.new
+
+md5sum /dev/mtd4
+

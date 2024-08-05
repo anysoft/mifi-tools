@@ -1,0 +1,157 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='advanced_settings'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <div class="nav_right">
+                <ul>
+                    <li><a href="#wlan_sleep" data-trans="sleep_mode"></a></li>
+                    <li><a href="#route_set" data-trans="router_setting"></a></li>
+                    <li><a href="#filter_main" data-trans="firewall"></a></li>
+                    <li><a href="#fota" data-trans="update_settings"></a></li>
+                    <li><a href="#sdcard" data-bind="visible: isSupportSD" data-trans="sd" class="c2175FF"></a></li>
+                    <li><a href="#dynamic_dns" data-trans="DDNS"></a></li>
+                    <li><a data-trans="network_band_selection"
+                            href="#band_selection"></a></li>
+                    <li class="active"><a data-trans="tr069" href="#tr069"></a></li>
+                    <li><a data-trans="vpn" href="#vpn"></a></li>
+                    <li><a href="#more" data-trans="others"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xs-10">
+            <form id="frmTr069" role="form">
+                <h3 class="form-title" data-trans="tr069_setting"></h3>
+                <div class="form-body margin-top-20">
+                    <div class="content">
+                        <div class="row form-group">
+                            <label data-trans="tr069" for="txttr069" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-8">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <input id="tr069Enable" name="tr069Server" data-bind="checked: tr069Server"
+                                            type="radio" value="1" />
+                                        <label data-trans="enable" for="tr069Enable"></label>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="tr069Disable" name="tr069Server" data-bind="checked: tr069Server"
+                                            type="radio" value="0" />
+                                        <label data-trans="disable" for="tr069Enable"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="acsname" for="AcsName" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4">
+                                <input id="AcsName" name="AcsName" data-bind="value: AcsName" maxlength="255"
+                                    type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="acspassword" for="txtAcsPassword" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4">
+                                <input id="pwdAcsPassword" name="pwdAcsPassword" data-bind="value: AcsPassword,visible:!showAcsPassword()"
+                                    maxlength="255" type="password" class="form-control" />
+                                <input id="txtAcsPassword" name="txtAcsPassword" data-bind="value: AcsPassword,visible:showAcsPassword()"
+                                       maxlength="255" type="text" class="form-control" />
+                                <div class="margin-top-10">
+                                    <p data-bind="css:{'checkbox_selected': showAcsPassword()}, click: showAcsPasswordHandler"
+                                       manualControl="true" class="checkbox">
+                                        <input id="showAcsPassword" data-bind="checked:showAcsPassword" type="checkbox"/>
+                                    </p>
+                                    <label data-trans="display_password" for="showAcsPassword" class="floatleft margintop5 lineheight25"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="acsaddress" for="AcsAddress" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4">
+                                <input id="AcsAddress" name="AcsAddress" data-bind="value: AcsAddress" maxlength="255"
+                                    type="text" class="required form-control" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="inform" for="inform" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-8">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <input id="informEnable" name="InformEnable" data-bind="checked: InformEnable"
+                                            type="radio" value="1" />
+                                        <label data-trans="enable" for="InformEnable"></label>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="informDisable" name="InformEnable" data-bind="checked: InformEnable"
+                                            type="radio" value="0" />
+                                        <label data-trans="disable" for="InformEnable"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="reportcycle" for="ReportCycle" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4">
+                                <input id="ReportCycle" name="ReportCycle" data-bind="value: ReportCycle" maxlength="10"
+                                    type="text" class="required form-control" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="cpeauthenable" for="cpeauth" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-8">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <input id="AuthEnable" name="cpeAuthEnable" data-bind="checked: AuthEnable"
+                                            type="radio" value="1" />
+                                        <label data-trans="enable" for="AuthEnable"></label>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input id="cpeAuthDisable" name="AuthEnable" data-bind="checked: AuthEnable"
+                                            type="radio" value="0" />
+                                        <label data-trans="disable" for="cpeAuthDisable"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="cpename" for="CpeName" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4">
+                                <input id="CpeName" name="CpeName" data-bind="value: CpeName" maxlength="255"
+                                    type="text" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="cpepassword" for="txtCpePassword" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4">
+                                <input id="pwdCpePassword" name="pwdCpePassword" data-bind="value: CpePassword,visible:!showCpePassword()"
+                                    maxlength="255" type="password" class="form-control"/>
+                                <input id="txtCpePassword" name="txtCpePassword" data-bind="value: CpePassword,visible:showCpePassword()"
+                                       maxlength="255" type="text" class="form-control"/>
+                                <div class="margin-top-10">
+                                    <p data-bind="css:{'checkbox_selected': showCpePassword()}, click: showCpePasswordHandler"
+                                       manualControl="true" class="checkbox">
+                                        <input id="showCpePassword" data-bind="checked:showCpePassword" type="checkbox"/>
+                                    </p>
+                                    <label data-trans="display_password" for="showCpePassword" class="floatleft margintop5 lineheight25"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <input type="submit" data-trans="apply" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

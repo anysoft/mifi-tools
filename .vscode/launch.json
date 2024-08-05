@@ -1,0 +1,76 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: split",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "split",
+                "test\full.bin"
+            ]
+        },
+        {
+            "name": "Python Debugger: merge",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "merge",
+                ".\\test"
+            ]
+        },
+        {
+            "name": "Python Debugger: unpack firmware",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "unpack",
+                ".\\test\\full.bin"
+            ]
+        },
+        {
+            "name": "Python Debugger: unpack mtd4",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "unpack",
+                ".\\test\\4.rootfs"
+            ]
+        },
+        {
+            "name": "Python Debugger: repack firmware",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "repack",
+                ".\\test\\4_0-2abe5c.rootfs",
+                ".\\test\\full.bin"
+            ]
+        },
+        {
+            "name": "Python Debugger: repack mtd4",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "repack",
+                ".\\test\\4_0-2abe5c.rootfs",
+                ".\\test\\4.rootfs"
+            ]
+        }
+    ]
+}
