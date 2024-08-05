@@ -14,17 +14,24 @@ url = 'https://googledownloads.cn/android/repository/platform-tools-latest-{}.zi
 
 
 # 判断操作系统类型
-os_type = platform.system()
+os_type = platform.system().lower()
 url = url.format(os_type).lower()
 
 current_path = os.path.dirname(os.path.abspath(__file__))
+project_path = os.path.dirname(current_path)
+platform_tools_path = os.path.join(project_path, 'platform-tools')
+platform_tools_system_path = os.path.join(platform_tools_path, os_type)
 # *****/adb.exce
-adb_exe_path = os.path.join(os.path.basename(current_path),"platform-tools/{}/adb".format(os_type.lower()))
-platform_tools_path = os.path.dirname(adb_exe_path)
+adb_exe_path = os.path.join(platform_tools_system_path,"adb")
+
+
+# platform_tools_path = os.path.dirname(adb_exe_path)
 
 platform_tools_zip_file_name = f'platform-tools-latest-{os_type.lower()}.zip'
 
 def download(url, path):
+    if not os.path.exists(os.path.dirname(path)):
+        os.makedirs(os.path.dirname(path))
     r = requests.get(url, stream=True)
     with open(path, 'wb') as f:
         f.write(r.content)
@@ -52,8 +59,8 @@ def check_platform_tools():
         if os.path.exists(f'{adb_exe_path}.exe'):
             return
     download(url, os.path.join(platform_tools_path, platform_tools_zip_file_name))
-    unzip_file(platform_tools_zip_file_name, os.path.join(platform_tools_path, os_type.lower()))
-    move_and_remove(os.path.join(os.path.join(platform_tools_path, os_type.lower()),'platform-tools'), os.path.join(platform_tools_path, os_type.lower()))
+    unzip_file(os.path.join(platform_tools_path, platform_tools_zip_file_name), platform_tools_path)
+    move_and_remove(os.path.join(platform_tools_path,'platform-tools'), os.path.join(platform_tools_path, os_type.lower()))
 
 # 解压zip文件
 def unzip_file(zip_path, extract_path):

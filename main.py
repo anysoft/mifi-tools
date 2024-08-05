@@ -27,7 +27,7 @@ def main_menu():
     print(f'####################### MIFI-TOOLS ##########################')
     print(f'【PS】仅支持 zxic 中兴微固件\n\n')
 
-    print(f'功能菜单：                工作目录:{work_space_path} 固件名称: {default_firmware_name}\n') 
+    print(f'功能菜单:                工作目录:{work_space_path} 固件名称: {default_firmware_name}\n')
 
     
     print(f'O) 设定工作目录/选择编程器固件\n')
@@ -40,15 +40,15 @@ def main_menu():
 
     # print(f'        将squashfs格式的rootfs回写到 编程器固件 或 mtd4 分区\n')
 
-
+    print('------------------------------------------------------------------------------')
     print(f'1) 对比输出文件目录树及删除特定文件\n')
     print(f'2) 根据pyutils/default_parameter_default 修改 默认配置/etc_ro/default/default_parameter_* \n')
     print(f'3) 对比 2 个配置文件 \n')
     print(f'4) 对指定配置文件根据配置项的首字母排序输出 \n')
     
-    
+    print('-----------------------------------未实现----------------------------------------')
     print(f'\nR) 刷写 rootfs 分区        I) 刷写 imagefs 分区        U) 刷写 userdata 分区 \n')
-    print(f'W) 刷指定 web  \n')
+    print(f'W) 刷指定 web(仅支持可读写 16MB 设备，adb 刷写)  \n')
     print(f'AUTO) 一键制作全功能后台编程器固件及mtd4(基于squashfs的rootfs分区) \n')
 
 
@@ -73,11 +73,11 @@ def flash_rootfs():
     if os.path.exists(mtd4_file_path):
         if zxic_firmware_tools.is_mtd4_squashfs_file(mtd4_file_path):
             adb_tools.run_adb_command('mount -o remount,rw /')
-            adb_tools.push_file(f'{os.path.join(arm_tools_path, 'flashcp')} /tmp/')
-            adb_tools.push_file(f'{os.path.join(arm_tools_path, 'screen')} /tmp/')
+            adb_tools.push_file(f'{os.path.join(arm_tools_path, "flashcp")} /tmp/')
+            adb_tools.push_file(f'{os.path.join(arm_tools_path, "screen")} /tmp/')
             adb_tools.push_file(f'{mtd4_file_path} /tmp/')
             adb_tools.run_adb_command('chmod +x /tmp/flashcp /tmp/screen')
-            adb_tools.run_adb_command(' /sbin/fota_release_space.sh')
+            adb_tools.run_adb_command('/sbin/fota_release_space.sh')
 
 def main():
     
