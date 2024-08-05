@@ -234,7 +234,7 @@ sed -i 's@sim_lock_status=lock@sim_lock_status=unlock@' $FILE_DEFAULT_PARAMETER
 
 
 # SZXF OTA URL
-sed -i 's/redstone/hedstone/g' /lib/librsdlsdk.so
+sed -i 's/redstone/aedstone/g' /lib/librsdlsdk.so
 
 # SZXF OTA tools
 mv /bin/fota_upi /bin/fota_upi.original
