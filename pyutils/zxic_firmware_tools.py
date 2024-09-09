@@ -61,6 +61,48 @@ def is_mtd4_squashfs_file(file_path):
     return False
 
 
+# 从编程器固件或者 zloader中读取分区结构
+def get_partions_info_from_firmware(firmware_file_path):
+    partitions = []
+    with open(firmware_file_path, "rb") as file:
+        file.seek(8224)  # 0x2020
+        mtd_offsets = 0
+        i = 0
+        while True:
+            data = file.read(40)
+            if data[:2] == b"\x00\x00":
+                break
+            name = data[:16].rstrip(b"\x00").decode("utf-8")
+            ftype = data[16:32].rstrip(b"\x00").decode("utf-8")
+            size = struct.unpack("<I", data[36:])[0]
+            if ftype != "nand":
+                break
+            print(f"mtd 分区名: {name}, 类型: {ftype}, 大小(Bytes): {size}")
+            partitions.append((f"{i}.{name}", mtd_offsets, size))  # 存储分区的信息
+            i += 1
+            mtd_offsets += size
+    return partitions
+
+# 针对编程器固件读取分区表并拆分分区
+def split_mtds_by_partitions(firmware_file_path,output_path):
+    partitions = get_partions_info_from_firmware(firmware_file_path)
+    with open(firmware_file_path, "rb") as file:
+        # 输出每个分区文件
+        for i, (name, offset, size) in enumerate(partitions):
+            file.seek(offset)
+            data = file.read(size)
+            with open(os.path.join(output_path, name), "wb") as partition_file:
+                partition_file.write(data)
+                print(f"分区 {i} {name} 输出到 {name}")
+        # 输出分区结构备份
+        package_json_file = os.path.join(output_path, package_json_file_name)
+        with open(package_json_file, "w") as json_file:
+            json.dump(partitions, json_file)
+            print(f'分区结构表输出到: {package_json_file}')
+
+
+
+
 
 # 分割固件，支持 zxic 8MB 和 16MB 固件
 def split_firmware(firmware_file_path):
@@ -87,36 +129,39 @@ def split_firmware(firmware_file_path):
         if is_zxic_fireware_file(firmware_file_path):
             print(f"{firmware_file_path} 固件的rootfs分区是 {mtd4_file_system} 文件系统， 固件大小 size={file_size} bytes")
             # 是 zxic 固件
-            partitions = []  # 用来存储各个分区的偏移量和大小
-            file.seek(8224)  # 0x2020
-            mtd_offsets = 0
-            i = 0
-            while True:
-                data = file.read(40)
-                if data[:2] == b"\x00\x00":
-                    break
-                name = data[:16].rstrip(b"\x00").decode("utf-8")
-                ftype = data[16:32].rstrip(b"\x00").decode("utf-8")
-                size = struct.unpack("<I", data[36:])[0]
-                if ftype != "nand":
-                    break
-                print(f"mtd 分区名: {name}, 类型: {ftype}, 大小(Bytes): {size}")
-                partitions.append((f"{i}.{name}", mtd_offsets, size))  # 存储分区的信息
-                i += 1
-                mtd_offsets += size
+            # partitions = get_partions_info(firmware_file_path)
+            split_mtds_by_partitions(firmware_file_path, output_path)
 
-            # 输出每个分区文件
-            for i, (name, offset, size) in enumerate(partitions):
-                file.seek(offset)
-                data = file.read(size)
-                with open(os.path.join(output_path, name), "wb") as partition_file:
-                    partition_file.write(data)
-                    print(f"分区 {i} {name} 输出到 {name}")
-            # 输出分区结构备份
-            package_json_file = os.path.join(output_path, package_json_file_name)
-            with open(package_json_file, "w") as json_file:
-                json.dump(partitions, json_file)
-                print(f'分区结构表输出到: {package_json_file}')
+            # partitions = []  # 用来存储各个分区的偏移量和大小
+            # file.seek(8224)  # 0x2020
+            # mtd_offsets = 0
+            # i = 0
+            # while True:
+            #     data = file.read(40)
+            #     if data[:2] == b"\x00\x00":
+            #         break
+            #     name = data[:16].rstrip(b"\x00").decode("utf-8")
+            #     ftype = data[16:32].rstrip(b"\x00").decode("utf-8")
+            #     size = struct.unpack("<I", data[36:])[0]
+            #     if ftype != "nand":
+            #         break
+            #     print(f"mtd 分区名: {name}, 类型: {ftype}, 大小(Bytes): {size}")
+            #     partitions.append((f"{i}.{name}", mtd_offsets, size))  # 存储分区的信息
+            #     i += 1
+            #     mtd_offsets += size
+
+            # # 输出每个分区文件
+            # for i, (name, offset, size) in enumerate(partitions):
+            #     file.seek(offset)
+            #     data = file.read(size)
+            #     with open(os.path.join(output_path, name), "wb") as partition_file:
+            #         partition_file.write(data)
+            #         print(f"分区 {i} {name} 输出到 {name}")
+            # # 输出分区结构备份
+            # package_json_file = os.path.join(output_path, package_json_file_name)
+            # with open(package_json_file, "w") as json_file:
+            #     json.dump(partitions, json_file)
+            #     print(f'分区结构表输出到: {package_json_file}')
         # elif header.hex().startswith("68737173"):
         #     print(f"{firmware_file_path}")
     return output_path
