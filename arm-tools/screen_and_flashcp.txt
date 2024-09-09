@@ -17,7 +17,6 @@ cd /tmp
 
 chmod +x flashcp screen
 
-./screen -dmS mtd_flash 
-./flashcp ./mtd4.new /dev/mtd4 -v
+./screen -dmS mtd_flash ./flashcp ./mtd4.new /dev/mtd4 -v
 
 reboot
