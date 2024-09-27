@@ -1,0 +1,106 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='net_setting'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+		<div class="nav_right">
+			<ul>
+			    <li><a data-trans="dial_mode" href="#conn_set"></a></li>
+				<li class="active"><a data-trans="net_select" href="#network_choose"></a></li>
+				<li><a data-trans="apn_setting" href="#cgdcont_set"></a></li>
+			</ul>
+		</div>
+	    </div>
+
+	    <div class="col-xs-10">
+
+<form role="form">
+<div class="form-body">
+	    <h3 data-trans="net_select" class="form-title"></h3>
+    <div class="content">
+        <div class="row form-group">
+            <label data-trans='net_select' class="col-xs-4 side-right"></label>
+            <div class="col-xs-8">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <input id='auto_select' type="radio" name="selectGroup" value="auto_select" data-bind="checked: selectMode, enable: enableFlag" />
+                        <label for='auto_select' data-trans='auto_select'></label>
+                    </div>
+                    <div class="col-xs-6">
+                        <select id="type" data-transid='auto_select_type' data-bind="options: types, value: selectedType, optionsText: transOption('auto_select_type'), optionsValue: 'value', enable: enableFlag() && selectMode() == 'auto_select'" class="form-control"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-xs-4 side-right"></label>
+            <div class="col-xs-8">
+                <input id='manual_select' type="radio" name="selectGroup"  value="manual_select" data-bind="checked: selectMode, enable: enableFlag" />
+                <label for='manual_select' data-trans='manual_select'></label>
+            </div>
+        </div>
+    </div>
+    <div class="form-buttons">
+        <input type="button" data-bind='click: save, visible: selectMode() == "auto_select", enable: enableFlag, css: {disabled: !enableFlag()}' data-trans='apply' class="btn btn-primary"/>
+        <input type="button" data-bind='click: search, visible: selectMode() != "auto_select", enable: enableFlag, css: {disabled: !enableFlag()}' data-trans='search' class="btn btn-primary"/>
+    </div>
+    
+    <div data-bind='visible: networkList().length > 0 && selectMode() == "manual_select"' class="content">
+        <div class="form-title">
+            <h2 data-trans='network_list'></h2>
+        </div>
+        <div class="content">
+            <div class="ko-grid-container marginnone">
+                <table cellspacing="0" cellpadding="0" class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th width="12%" data-trans="option"></th>
+                        <th width="16%" data-trans="net_status"></th>
+                        <th width="21%" data-trans="network_provider"></th>
+                        <th width="18%" data-trans="mccmnc"></th>
+                        <th width="18%" data-trans="networktype"></th>
+                        <th width="15%" data-trans="subnet"></th>
+                    </tr>
+                    </thead>
+                    <tbody data-bind='foreach: networkList'>
+                    <tr data-bind="css:{odd:$index()%2==1, even:$index()%2==0}">
+                        <td><input type="radio" name="networkGroup"
+                                   data-bind='value: $root.networkValue($data), checked: $root.selectNetwork, attr: {id: $root.networkValue($data)}, enable: $root.enableFlag'/>
+                        </td>
+                        <td data-bind='attr: {"data-trans": $root.networkStatusId($data)}, text: $root.networkStatus($data)'></td>
+                        <td data-bind='text: $root.operatorName($data)'></td>
+                        <td data-bind='text: $root.networkText($data)'></td>
+                        <td data-bind='attr: {"data-trans": $root.networkTypeId($data)}, text: $root.networkType($data)'></td>
+                        <td data-bind='attr: {"data-trans": $root.subnetTypeId($data)}, text: $root.subnetworkType($data)'></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+	     <div class="form-buttons">
+		     <input type="button" data-bind='click: register, enable: selectNetwork() != "" && enableFlag, css: {disabled: selectNetwork() == "" || !enableFlag()}' data-trans='register' class="btn btn-primary"/>
+		 </div>
+     </div>
+    <div class="form-note">
+        <div class="notes-title">&nbsp;</div>
+        <ul class="notes-content">
+			<li data-trans="diconneted_operate_note"></li>
+            <li data-trans="net_select_note_automatic"></li>
+            <li data-trans="net_select_note_manual"></li>
+        </ul>
+    </div>
+</div>
+</form>
+    </div>
+</div>
+</div>

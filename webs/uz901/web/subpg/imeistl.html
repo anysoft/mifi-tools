@@ -1,0 +1,66 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main"><img alt="" src="pic/direct-back.png"></a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='advanced_settings'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <div class="nav_right">
+                <ul>
+                    <li>
+                        <a href="#demilitarized_zone" data-trans="dmz_setting"></a>
+                    </li>
+                    <li>
+                        <a href="#pin_mode" data-trans="pin_management"></a>
+                    </li>
+                    <li>
+                        <a href="#wlan_sleep" data-trans="sleep_mode"></a>
+                    </li>
+                    <li>
+                        <a href="#route_set" data-trans="router_setting"></a>
+                    </li>
+                    <li>
+                        <a href="#filter_main" data-trans="firewall"></a>
+                    </li>
+                    <li>
+                        <a href="#fota" data-trans="update_settings"></a>
+                    </li>
+                    <li>
+                        <a href="#more" data-trans="others"></a>
+                    </li>
+                    <li class="active">
+                        <a href="#imeistl" data-trans="imeistl"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-10">
+            <form id="frmimei" role="form">
+                <div class="form-body">
+                    <div class="content">
+                        <div class="row form-group"><label data-trans="new_imei" for="tximei" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4"><input name="imeiNewKey" id="imei_new" type="text" size="20" data-bind="value:IMEINew" maxlength="15" class="form-control valid"></div>
+                            <div class="form-buttons"><input id="btnimeiApply" type="submit" class="btn btn-primary" data-trans="apply" /></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form id="frmttl" role="form">
+                <div class="form-body">
+                    <div class="content">
+                        <div class="row form-group"><label class="col-xs-4 side-right" data-trans="TTL" for="txtttlvalue"></label>
+                            <div class="col-xs-4"><input name="txtttlvalue" id="Text2" type="text" size="20" data-bind="value:TTLNew" maxlength="3" class="form-control valid"></div>
+                            <div class="form-buttons"><input id="btnTTLApply" type="submit" class="btn btn-primary" data-trans="apply" /></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

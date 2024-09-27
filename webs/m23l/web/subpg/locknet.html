@@ -1,0 +1,70 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a data-bind="visible: !isHomePage()" href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='no_sim_card_title'></h1>
+            </div>
+        </div>
+    </div>
+	<div style="margin-top:-15px;margin-bottom:30px;color:#428bca;" class="row">   
+	    <div style="position: relative;" class="col-xs-7"></div>
+		<div id="currentOpMode" data-bind="visible: hasRj45" class="col-xs-5 text-right">
+			<label data-trans="current_mode"></label>
+			<span id="opmode"></span>
+			<input id="change" data-bind="click: showOpModeWindow, visible: isLoggedIn, enable: enableFlag" data-trans="change" style="display:none" type="button" class="btn btn-primary"/>
+		</div>
+	</div>
+    <div id="div-network-lock" class="row">
+        <div class="col-xs-1 margin-top-15">
+        </div>
+        <div class="col-xs-11">
+
+    <form id="frmNetworkLock">
+        <div class="form-body">
+            <div class="content">
+                <p data-trans="network_locked" class="colorRed font18"></p>
+                <div data-bind="visible:supportUnlock && times()>0">
+                    <p data-trans="network_locked_explain"></p>
+                    <p>
+                        <span data-trans="network_locked_times_explain"></span>
+                        <span data-bind="text:times"></span>
+                    </p>
+                    <div class="row form-group">
+                        <label data-trans="network_locked_enter_explain" for="txtLockNumber" class="col-xs-3"></label>
+                        <div class="col-xs-6">
+                            <input id="txtLockNumber" name="txtLockNumber" data-bind="value:unlockCode,valueUpdate: 'keypress'" maxlength="16" type="text" class="required form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <p data-bind="visible:supportUnlock && times()==0" data-trans="network_locked_zero_times"></p>
+            </div>
+            <div data-bind="visible:supportUnlock && times()>0" class="form-buttons">
+                <input data-trans="ok" type="submit" formmethod="post" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+<div data-bind="visible: isHomePage" class="row margin-top-50">
+	<div class="type_items"  style="margin:0px 0px 0px 35px">
+		<ul>
+			<li><a data-trans="station_info" href="#conn_device"></a></li>
+			<li><a data-trans="wifi_wireless_settings" href="#wlan_main"></a></li>
+			<li><a data-bind="visible: hasParentalControl()" data-trans="parental_control" href="#child_ctl"></a></li>
+			<li><a data-bind="visible: hasSms" data-trans="sms" href="#msg_main"></a></li>
+			<li><a data-bind="visible: hasPhonebook" data-trans="phonebook" href="#pb_main"></a></li>
+			<li><a data-bind="visible: isSupportSD" data-trans="sd" href="#sdcard"></a></li>
+			<li><a data-trans="advanced_settings" href="#wlan_sleep"></a></li>
+			<!--li data-bind="visible: showNetSettings"><a href="#network_set" data-trans="settings_internet"></a></li-->
+		</ul>
+	</div>
+	<div id="h_qrcode" data-bind="visible: showQRCode" style="float:right" class="text-center margin-top-15">
+		<img id="qrcode_img" data-bind="attr: {src: qrcodeSrc}" src="./pic/res_blacktrans.png" width="111"/>
+	</div>
+</div>
+</div>

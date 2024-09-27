@@ -1,97 +1,89 @@
+# host
 nv set HOST_FIELD="Host: 127.0.0.1"
 nv set TM_SERVER_NAME=127.0.0.1
-nv set fl_autoswitchsim=0
 nv set mqtt_host=127.0.0.1
-nv set need_sim_pin=
-nv set sim_switch_process=
-nv set sim_switched_by_other_app=0
-nv set sim_switching=0
-nv set terminal_mgmt_enable=0
-nv set sim_lock_status=unlock
-nv set band_select_enable=1
-nv set dns_manual_func_enable=1
-nv set fota_current_upgrade_state=check_complete
-nv set fota_need_user_confirm_update=1
-nv set fota_new_version_state=check_complete
-nv set fota_updateMode=0
 nv set lpa_trigger_host=127.0.0.1
 nv set os_url=http://127.0.0.1
 nv set safecare_hostname=http://127.0.0.1
 nv set safecare_mobsite=http://127.0.0.1
-nv set sim_auto_switch_enable=0
+
+
+# manage 
+# nv set sys_mode=0
+# nv set sys_submode=0
+nv set root_Password=factoryAdmin
+
+# remote mgmt
+nv set terminal_mgmt_enable=0
+
+# advance 
+nv set band_select_enable=1
+nv set dns_manual_func_enable=1
+nv set ussd_enable=1
+nv set tr069_func_enable=1
+nv set user_ctrl_wifi_enable=1
+nv set wifiEnabled=1
+
+# sim
+nv set sim_lock_status=unlock
+nv set sim_unlock_code=az952#
+nv set fl_autoswitchsim=0
+nv set need_sim_pin=
+nv set sim_switch_process=
+nv set sim_switched_by_other_app=0
+nv set sim_switching=0
+nv set sim_switch=0
+
 nv set sim_current_type=0
 nv set sim_default_type=0
-nv set sim_lock_status=unlock
 nv set sim_set_default_flag=1
-nv set sys_mode=0
-nv set sys_submode=0
-nv set tr069_func_enable=1
-nv set ussd_enable=1
+nv set sim_auto_switch_enable=0
+nv set sim_switch_running_detect=0
+nv set sim_detect_timeout=20
 
+nv set fota_chk_url_gs=
 nv set fota_chk_url_zx=
-nv set fota_reg_url_gs=
-nv set fota_report_sales_url_gs=
-nv set fota_report_upgr_url_gs=
-nv set fota_version_delta_url=
-nv set fota_reg_url_zx=
-nv set fota_report_sales_url_zx=
-nv set fota_report_upgr_url_zx=
+nv set fota_current_upgrade_state=check_complete
 nv set fota_dl_url_gs=
-nv set fota_report_dlr_url_gs=
 nv set fota_dl_url_zx=
-nv set fota_report_dlr_url_zx=
+nv set fota_need_user_confirm_update=1
+# check_complete no_new_version
+nv set fota_new_version_state=no_new_version
+nv set fota_oem=
+nv set fota_platform=
+nv set fota_product_id=
+nv set fota_product_secret=
 
+nv set fota_reg_url_gs=
+nv set fota_reg_url_zx=
+nv set fota_report_dlr_url_gs=
+nv set fota_report_dlr_url_zx=
+nv set fota_report_sales_url_gs=
+nv set fota_report_sales_url_zx=
+nv set fota_report_upgr_url_gs=
+nv set fota_report_upgr_url_zx=
 
 nv set fota_token_gs=
-nv set fota_need_user_confirm_update=1
-nv set fota_product_secret=
+nv set fota_token_rs=
 nv set fota_token_zx=
-nv set fota_oem=
 nv set fota_updateMode=0
+nv set fota_update_space_threshold=500
+nv set fota_upgrade_selector=none
+nv set fota_version_delta_url=
 nv set fota_updateIntervalDay=0
 nv set fota_need_user_confirm_download=1
-nv set fota_token_rs=
-nv set fota_platform=
-
-nv set root_Password=factoryAdmin
-nv set rsim_lock_status=unlock
-nv set rsim_unlock_code=az952#
-
-nv save
 
 
 
-
-nv set fota_chk_url_gs=
-nv set fota_chk_url_zx=
-nv set fota_current_upgrade_state=check_complete
-nv set fota_dl_url_gs=
-nv set fota_dl_url_zx=
-nv set fota_new_version_state=no_new_version
-nv set fota_oem=
-nv set fota_platform=
-nv set fota_product_id=
-nv set fota_product_secre=
-nv set fota_reg_url_gs=
-nv set fota_reg_url_zx=
-nv set fota_report_dlr_url_gs=
-nv set fota_report_dlr_url_zx=
-nv set fota_report_sales_url_gs=
-nv set fota_report_sales_url_zx=
-nv set fota_report_upgr_url_gs=
-nv set fota_report_upgr_url_zx=
-nv set fota_token_gs=
-nv set fota_token_rs=
-nv set fota_token_zx=
-nv set fota_update_space_threshold=500
-nv set fota_upgrade_selector=none
 nv set idle_time="600"
 nv set is_traffic_aline_on=no
 nv set is_traffic_alining=no
 nv set is_traffic_limit_on=no
 nv set keep_online_when_limited=no
+
 nv set need_restart_when_sim_insert=no
 nv set need_support_sms=yes
+
 nv set sim_card_remain=50
 nv set sim_card_total=50
 nv set sim_card_used=0
@@ -106,84 +98,27 @@ nv set sms_sim_capability=50
 nv set sms_state=sms_loaded
 nv set sms_store=ok
 nv set sms_unread_count=0
-nv set band_select_enable=1
-nv set dns_manual_func_enable=1
-nv set fota_need_user_confirm_update=1
-nv set fota_updateIntervalDay=0
-nv set fota_updateMode=0
-nv set lpa_trigger_host=127.0.0.1
-nv set safecare_hostname=127.0.0.1
-nv set safecare_mobsite=http://127.0.0.1
-nv set sim_auto_switch_enable=0
-nv set sim_default_type=0
-nv set sim_set_default_flag=1
 nv set sms_vp=longest
+
+
+
+
 nv set ssid_write_flag=1
-nv set tr069_func_enable=1
-nv set ussd_enable=1
 nv set wifi_root_dir=/etc_rw
-nv set sim_switch=0
-nv set sim_lock_status_unlock=unlock
-nv set fota_chk_url_gs=
-nv set fota_chk_url_zx=
-nv set fota_current_upgrade_state=check_complete
-nv set fota_dl_url_gs=
-nv set fota_dl_url_zx=
-nv set fota_new_version_state=no_new_version
-nv set fota_oem=
-nv set fota_platform=
-nv set fota_product_id=
-nv set fota_product_secre=
-nv set fota_reg_url_gs=
-nv set fota_reg_url_zx=
-nv set fota_report_dlr_url_gs=
-nv set fota_report_dlr_url_zx=
-nv set fota_report_sales_url_gs=
-nv set fota_report_sales_url_zx=
-nv set fota_report_upgr_url_gs=
-nv set fota_report_upgr_url_zx=
-nv set fota_token_gs=
-nv set fota_token_rs=
-nv set fota_token_zx=
-nv set fota_update_space_threshold=500
-nv set fota_upgrade_selector=none
-nv set idle_time="600"
-nv set is_traffic_aline_on=no
-nv set is_traffic_alining=no
-nv set is_traffic_limit_on=no
-nv set keep_online_when_limited=no
-nv set need_restart_when_sim_insert=no
-nv set need_support_sms=yes
-nv set sim_card_remain=50
-nv set sim_card_total=50
-nv set sim_card_used=0
-nv set sms_center_num=+8613010888500
-nv set sms_db_change=0
-nv set sms_init_status=sms_normal
-nv set sms_load_result=ok
-nv set sms_nv_capability=100
-nv set sms_received_flag=
-nv set sms_recv_result=
-nv set sms_sim_capability=50
-nv set sms_state=sms_loaded
-nv set sms_store=ok
-nv set sms_unread_count=0
-nv set band_select_enable=1
-nv set dns_manual_func_enable=1
-nv set fota_need_user_confirm_update=1
-nv set fota_updateIntervalDay=0
-nv set fota_updateMode=0
-nv set lpa_trigger_host=127.0.0.1
-nv set safecare_hostname=127.0.0.1
-nv set safecare_mobsite=http://127.0.0.1
-nv set sim_auto_switch_enable=0
-nv set sim_default_type=0
-nv set sim_set_default_flag=1
-nv set sms_vp=longest
-nv set ssid_write_flag=1
-nv set tr069_func_enable=1
-nv set ussd_enable=1
-nv set wifi_root_dir=/etc_rw
+
+
+
+# m23l
+nv set cstm_webui_ttl=1
+nv set cstm_wifi_sleep=1
+nv set cstm_webui_imei=1
+nv set cstm_webui_simswitch=2
+nv set cstm_webui_battery=1
+nv set cstm_webui_restartplan=1
+nv set cstm_webui_dns=1
+nv set cstm_webui_bandselect=1
+nv set cstm_webui_unlocksim=2
+nv set vpn_enable=1
 
 nv save
 
@@ -241,3 +176,50 @@ mv /bin/fota_upi /bin/fota_upi.original
 echo "#!/bin/sh" > /bin/fota_upi
 echo "echo 'hello world!'" >> /bin/fota_upi
 chmod 755 /bin/fota_upi
+
+mv /bin/terminal_mgmt /bin/terminal_mgmt.original
+echo "#!/bin/sh" > /bin/terminal_mgmt
+echo "echo 'hello world!'" >> /bin/terminal_mgmt
+chmod 755 /bin/terminal_mgmt
+
+
+# TR069
+/bin/cwmpd
+
+/bin/dmp_mgmt
+
+
+
+keep_alive_enable
+keep_alive
+/bin/check_net
+
+
+
+traffic_mgmt_enable
+traffic_mgmt
+
+
+xmqtt_client_enable
+/bin/XMqttClientApp
+
+terminal_mgmt_enable
+/bin/terminal_mgmt
+
+wts_mgmt_enable
+/bin/wts_mgmt
+
+ctiot_mgmt_enable
+/bin/ctiot_mgmt
+
+onenet_mgmt_enable
+/bin/onenet_mgmt
+
+/sbin/start_update_app.sh
+
+
+enable_lpa
+zte_lpa
+
+start_telnetd
+/sbin/start_telnetd.sh

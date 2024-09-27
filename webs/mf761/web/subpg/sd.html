@@ -1,0 +1,151 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#fota">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='sd'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+	    <div class="col-xs-2">
+		    <div class="nav_right">
+		    <ul>
+			    <li class="active "><a href="#sdcard" data-trans="sd"></a></li>
+			    <li><a href="#httpshare" data-trans="httpshare"></a></li>
+			</ul>
+			</div>
+		</div>
+        <div class="col-xs-10">
+
+<div class="form-body margin-top-20">
+
+    <form id="sdmode_form">
+        <div class="content">
+            <div id="sd_status_group" class="row form-group">
+                <label class="col-xs-4" data-trans="sd_card_status"></label>
+                <div class="col-xs-6">
+                    <label id="sd_card_status_info" data-bind="attr: {'data-trans': sdStatusInfo}" class="colorLightBlue show label-content"></label>
+                </div>
+            </div>
+            <div class="row" data-bind="visible: sdStatus() == 2">
+                <label class="col-xs-3"></label>
+                <div style="margin-top: 0;" class="form-note col-xs-8 sd_invalid_notes">
+                    <span data-trans="sd_card_status_info_2_reason"></span>
+                    <ul class="notes-content">
+                        <li data-trans="sd_card_status_info_2_reason_1"></li>
+                        <li data-trans="sd_card_status_info_2_reason_2"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row form-group" data-bind="visible: sdStatus() != 0">
+                <label class="col-xs-4" data-trans="sd_card_mode"></label>
+                <div class="col-xs-8">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <input id="mode_set_usb" name="mode_set" data-bind="checked: selectedMode" type="radio" value="1"/>
+                            <label data-trans="sd_card_share_usb_mode" for="mode_set_usb"></label>
+                        </div>
+                        <div class="col-xs-4">
+                            <input id="mode_set_http" name="mode_set" data-bind="checked: selectedMode" type="radio" value="0"/>
+                            <label data-trans="sd_card_share_http_share_mode" for="mode_set_http"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-buttons" data-bind="visible: sdStatus() != 0">
+                <input data-trans="apply" data-bind="disable: disableApplyBtn()" type="submit" formmethod="post" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+    <div  data-bind="visible: orignalMode() == 0 && selectedMode() == 0 ">
+	<form id="httpshare_form">
+	    <h3 class="form-title" data-trans="http_title"></h3>
+        <div class="content">
+            <div data-bind="visible: selectedMode() == 0 && sdStatus() != 0">
+                <div class="row form-group">
+                    <label data-trans="sd_card_share_setting" class="col-xs-4"></label>
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <input id="share_enable_Enable" name="share_enable" data-bind="checked: selectedShareEnable" type="radio" value="1"/>
+                                <label data-trans="enable" for="share_enable_Enable"></label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input id="share_enable_Disable" name="share_enable" data-bind="checked: selectedShareEnable" type="radio" value="0"/>
+                                <label data-trans="disable" for="share_enable_Disable"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-bind="visible: selectedShareEnable() == 1">
+                    <div class="row form-group">
+                        <label class="col-xs-4" data-trans="sd_card_file_to_share"></label>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <input id="sd_card_entire_sd_card" name="file_to_share" data-bind="checked: selectedFileToShare, click: fileToShareClickHandle" type="radio" value="1"/>
+                                    <label data-trans="sd_card_entire_sd_card" for="sd_card_entire_sd_card"></label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="sd_card_custom_setting" name="file_to_share" data-bind="checked: selectedFileToShare, click: fileToShareClickHandle" type="radio" value="0"/>
+                                    <label for="sd_card_custom_setting" data-trans="sd_card_custom_setting"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label data-trans="sd_card_access_type" class="col-xs-4"></label>
+                        <div class="col-xs-8">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <input id="sd_card_read_write" name="access_type" data-bind="checked: selectedAccessType" type="radio" value="1"/>
+                                    <label for="sd_card_read_write" data-trans="sd_card_read_write"></label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input id="sd_card_readonly" name="access_type" data-bind="checked: selectedAccessType" type="radio" value="0"/>
+                                    <label data-trans="sd_card_readonly" for="sd_card_readonly"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label data-trans="sd_card_path_to_share" for="path_to_share" class="col-xs-4"></label>
+                        <div class="col-xs-5">
+                            <input id="path_to_share" name="path_to_share" data-bind="value: pathToShare, disable: selectedShareEnable() == 0 || selectedFileToShare() == 1" maxlength="200" type="text" class="form-control required"/>
+                        </div>
+                    </div>
+                    <div data-bind="visible: isInvalidPath" class="row">
+                        <span class="col-xs-4"></span>
+                        <div class="col-xs-5">
+                            <span data-trans="sd_share_path_is_invalid" class="colorRed"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-bind="visible: sdStatus() != 0" class="form-buttons">
+                <input data-trans="apply" data-bind="disable: disableApplyBtn()" type="submit" formmethod="post" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+    </div>
+	
+    <div class="form-note">
+        <div class="notes-title">&nbsp;</div>
+        <ul class="notes-content">
+            <li data-trans="note_not_support_fs_ntfs"></li>
+            <li data-trans="note_web_share_mode"></li>
+            <li data-trans="note_usb_access"></li>
+            <li data-bind="visible: orignalMode() == 0 && selectedMode() == 0 " data-trans="note_path_to_share_example"></li>
+            <li data-bind="visible: orignalMode() == 0 && selectedMode() == 0 " data-trans="note_invalid_file_path"></li>
+        </ul>
+    </div>    
+</div>
+</div>
+</div>
+</div>

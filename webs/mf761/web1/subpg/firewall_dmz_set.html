@@ -1,0 +1,64 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a data-bind="attr: {href: isDataCard? '#main' : '#filter_main'}">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-bind="attr: {'data-trans': isDataCard? 'advanced_settings' : 'dmz_setting'}"></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1 margin-top-15">
+        </div>
+        <div class="col-xs-11">
+
+        <ul role="tablist" data-bind="visible: isDataCard" class="nav nav-tabs nav-justified">
+            <li class="active"><a data-trans="dmz_setting" href="#demilitarized_zone"></a></li>
+            <li><a data-trans="pin_management" href="#pin_mode"></a></li>
+            <li><a data-trans="update_settings" href="#fota"></a></li>
+        </ul>
+
+<form id="dmzSettingForm" data-bind="css: {'margin-top-20': isDataCard}">
+    <div class="form-body">
+        <div class="content">
+            <div class="row form-group">
+                <label data-trans="dmz_setting" class="col-xs-3 side-right"></label>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <input id="dmzEnable" type="radio" name="dmzGrp" data-bind="checked: dmzSetting" value="1"/>
+                            <label for="dmzEnable" data-trans="enable"></label>
+                        </div>
+                        <div class="col-xs-4" style="width: 35%;">
+                            <input id="dmzDisable" type="radio" name="dmzGrp" data-bind="checked: dmzSetting" value="0"/>
+                            <label for="dmzDisable" data-trans="disable"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-bind='visible: dmzSetting() == "1"' class="row form-group">
+                <label for="txtIpAddress" data-trans="ip_address" class="col-xs-3 side-right"></label>
+                <div class="col-xs-6">
+                    <input id="txtIpAddress" name="txtIpAddress" type="text" data-bind="value: ipAddress, valueUpdate: 'keypress'" class="required form-control" maxlength="15"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-buttons">
+            <input type="submit" formmethod="post" data-trans="apply" class="btn btn-primary"/>
+        </div>
+        <div class="form-note">
+            <div class="notes-title">&nbsp;</div>
+            <ul class="notes-content">
+                <li data-trans="dmz_note_info"></li>
+                <li data-trans="dmz_note_function"></li>
+            </ul>
+        </div>
+    </div>
+</form>
+    </div>
+</div>
+</div>

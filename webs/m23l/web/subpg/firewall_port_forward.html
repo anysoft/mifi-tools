@@ -1,0 +1,130 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#filter_main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='port_forward'></h1>
+            </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-xs-1 margin-top-15">
+
+    </div>
+    <div class="col-xs-11">
+
+<div class="form-body">
+    <form id="virtualServerForm">
+
+        <div class="content">
+            <div class="row form-group">
+                <label class="col-xs-3 side-right" data-trans="virtual_server_setting"></label>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <input id="serverEnable" type="radio" name="serverGrp" data-bind="checked: portForwardEnable" value="1"/>
+                            <label for="serverEnable" data-trans="enable"></label>
+                        </div>
+                        <div class="col-xs-4" style="width: 35%;">
+                            <input id="serverDisable" type="radio" name="serverGrp" data-bind="checked: portForwardEnable" value="0"/>
+                            <label for="serverDisable" data-trans="disable"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-buttons">
+            <input type="submit" formmethod="post" data-trans="apply" class="btn btn-primary"/>
+        </div>
+        <div class="form-note">
+            <div class="notes-title">&nbsp;</div>
+            <ul class="notes-content">
+                <li data-trans="port_forward_note_info"></li>
+            </ul>
+        </div>
+    </form>
+    <div data-bind="visible: oriPortForwardEnable() == '1' && portForwardEnable() == '1' ">
+        <form id="portForwardForm">
+            <div class="form-title">
+                <h2 data-trans="port_forward_setting"></h2>
+            </div>
+            <div class="content">
+                <div class="row form-group">
+                    <label for="txtIpAddress" data-trans="ip_address" class="col-xs-3 side-right"></label>
+                    <div class="col-xs-9">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <input id="txtIpAddress" type="text" name="txtIpAddress" data-bind="value: ipAddress" maxlength="15" class="required form-control"/>
+                            </div>
+                            <label id="ipExamLabel" data-trans="ipExam" class="col-xs-4"></label>
+                        </div>
+                    </div>
+                    <div id="ipErrorDiv" class="col-xs-9 col-md-offset-3"></div>
+                </div>
+                <div class="row form-group">
+                    <label for="txtPortStart" data-trans='port_range' class="col-xs-3 side-right"></label>
+                    <div class="col-xs-9">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <input id='txtPortStart' name="txtPortStart" type="text" data-bind="value: portStart"
+                                       maxlength="5" class="required rangeInput form-control"/>
+                            </div>
+                            <div class="col-xs-2 text-center">
+                                -
+                            </div>
+                            <div class="col-xs-3">
+                                <input id='txtPortEnd' name="txtPortEnd" type="text" data-bind="value: portEnd"
+                                       maxlength="5" class="required rangeInput form-control"/>
+                            </div>
+                            <label id='rangeLabel' class="col-xs-4">(1~65535)</label>
+                        </div>
+                    </div>
+                    <div id="portRangeErrorDiv" class="col-xs-9 col-md-offset-3"></div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-xs-3 side-right" for="protocol" data-trans="protocol"></label>
+                    <div class="col-xs-6">
+                        <select id="protocol" data-transid="protocol" data-bind="options: modes, value: selectedMode, optionsText: transOption('protocol'), optionsValue: 'value'" class="form-control"></select>
+                     </div>
+                </div>
+                <div class="row form-group">
+                    <label for="txtComment" data-trans="comment" class="col-xs-3 side-right"></label>
+                    <div class="col-xs-6">
+                        <input id="txtComment" type="text" name="txtComment" data-bind="value: comment" maxlength="32" class="required form-control"/>
+                   </div>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <input type="submit" formmethod="post" data-trans="apply" class="btn btn-primary"/>
+            </div>
+            <div class="form-note">
+                <div class="notes-title">&nbsp;</div>
+                <ul class="notes-content">  
+                    <li data-trans="port_forward_note_ip_address"></li>
+					<li data-trans="port_forward_note_port"></li>
+                    <li data-trans="port_forward_note_protocol"></li>
+                    <li data-trans="port_forward_note_comment"></li>
+                    <li data-trans="rule_max_note"></li>
+                </ul>
+            </div>
+        </form>
+        <form id="portForwardListForm">
+            <div class="form-title">
+                <h2 data-trans="port_forward_list"></h2>
+            </div>
+            <div class="content">
+                <div id="portForwards" data-bind="simpleGrid: gridTemplate" class="fixTableScroll"></div>
+            </div>
+            <div class="form-buttons">
+                <input type="submit" formmethod="post" data-trans="delete" data-bind="enable: gridTemplate.checkedCount() > 0" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+    </div>
+</div>
+</div>

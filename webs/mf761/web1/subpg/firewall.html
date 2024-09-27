@@ -1,0 +1,70 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='advanced_settings'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+			<div class="nav_right">
+				<ul>
+					<li><a data-trans="sleep_mode" href="#wlan_sleep"></a></li>
+					<li><a data-trans="router_setting" href="#route_set"></a></li>
+					<li class="active"><a data-trans="firewall" href="#filter_main"></a></li>
+					<li data-bind="visible:hasUpdateCheck"><a data-trans="update_settings" href="#fota"></a></li>
+					<li data-bind="visible:hasDdns"><a data-trans="DDNS" href="#dynamic_dns"></a></li>
+					<li  class="bandSelect"><a data-trans="network_band_selection" href="#band_selection"></a></li>
+				
+                    <li><a data-trans="others" href="#more"></a></li>
+				</ul>
+			</div>
+		</div>
+
+    <div class="col-xs-10">
+        <div class="form-body">
+            <div class="content margin-top-20">
+                <div class="col-xs-4">
+                    <div class="row">
+                        <a href="#filter_port">
+                            <div data-trans="port_filter" class="line-height-40 arrow-right cursorhand"></div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#map_port">
+                            <div data-trans="port_map" class="line-height-40 arrow-right cursorhand"></div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#foward_port">
+                            <div data-trans="port_forward" class="line-height-40 arrow-right cursorhand"></div>
+                        </a>
+                    </div>
+                    <div data-bind="visible: hasUrlFilter" class="row">
+                        <a href="#filter_url">
+                            <div data-trans="url_filter" class="line-height-40 arrow-right cursorhand"></div>
+                        </a>
+                    </div>
+                    <div data-bind="visible: hasUpnp" class="row">
+                        <a href="#universal_plug_and_play">
+                            <div data-trans="upnp" class="line-height-40 arrow-right cursorhand"></div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#demilitarized_zone">
+                            <div data-trans="dmz" class="line-height-40 arrow-right cursorhand"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+

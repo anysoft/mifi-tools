@@ -1,0 +1,83 @@
+﻿<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='USSD'></h1>
+            </div>
+        </div>
+    </div>
+<div class="row">
+   <!-- <div class="col-xs-2">
+		<div class="nav_right">
+			<ul>
+			    <li><a data-trans="sleep_mode" href="#wlan_sleep"></a></li>
+				<li><a data-trans="router_setting" href="#route_set"></a></li>
+				<li><a data-trans="firewall" href="#filter_main"></a></li>
+				<li data-bind="visible:hasUpdateCheck"><a data-trans="update_settings" href="#fota"></a></li>
+				<li class="active"><a data-trans="USSD" href="#usat"></a></li>
+				<li data-bind="visible:hasDdns"><a data-trans="DDNS" href="#dynamic_dns"></a></li>
+				<li><a data-trans="others" href="#more"></a></li>
+			</ul>
+		</div>
+	</div>-->
+    <div class="col-xs-1 margin-top-15"></div>
+	<div class="col-xs-11">
+        
+    <form id="frmUSSD">
+	<div class="form-body">
+	    <h3 data-trans="USSD" class="form-title"></h3>
+        <div id="USSD_send_div"  data-bind="visible: USSDLocation()==0" class="form-body margin-top-20">
+            <div class="content">
+                <div class="row form-group">
+                    <label data-trans="ussd_send_to" class="col-xs-4 side-right"></label>
+                    <div class="col-xs-3">
+                        <input id="USSD_send" type="text" size="20" data-bind="value:USSDSend,valueUpdate:'afterkeydown'" class="required form-control">
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <input id="sendToNet" type="button" data-trans='ussd_send' data-bind="disable:USSDSend().length<=0,css:{disabled:USSDSend().length<=0},click:sendToNet" class="btn btn-primary marginright10" />
+                    <!--input type="reset"  data-trans='ussd_cancel' data-bind="disable:USSDSend().length<=0,css:{disabled:USSDSend().length<=0},click:resetUSSD" id="cancelToNet" class="btn btn-primary"/-->
+                </div>
+            </div>
+        </div>
+        <div id="USSD_reply_div"  data-bind="visible: USSDLocation()==1" class="form-body margin-top-20">
+            <!--<div class="form-title" data-trans='ussd_contents'></div>!-->
+            <div class="content">
+                <div class="row form-group">
+                    <label data-trans="ussd_contents" class="col-xs-4 side-right"></label>
+                    <div class="col-xs-3">
+                        <textarea id="USSD_Content" rows="8" cols="50" readonly="readonly" name="USSD_Content"></textarea>
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <input type="button" data-trans='ussd_cancel' data-bind="click:noReplyCancel" class="btn btn-primary marginright10"/>
+                </div>
+                <div id="ussd_action" data-bind="visible: ussd_action()!=0">
+                    <div class="row form-group">
+                        <label class="col-xs-4 side-right" data-trans="ussd_reply_to"></label>
+                        <div class="col-xs-3">
+                            <input id="USSD_reply" type="text" name="USSD_reply" size="20" data-bind="value:USSDReply"  class="required form-control">
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <input type="button" data-trans='ussd_reply' data-bind="click:replyToNet" class="btn btn-primary marginright10"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-note">
+            <div class="notes-title">&nbsp;</div>
+            <ul class="notes-content">
+                <li data-trans="ussd_note1"></li>
+            </ul>
+        </div>
+	</div>
+	</form>
+    </div>
+    </div>
+</div>

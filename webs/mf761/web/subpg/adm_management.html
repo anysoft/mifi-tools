@@ -1,0 +1,60 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='password_management'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1 margin-top-15">
+        </div>
+        <div class="col-xs-11">
+
+
+<form id="frmPassword" role="form">
+    <div class="form-body">
+        <div class="content">
+            <div class="row form-group">
+                <label data-trans="current_password" for="txtCurrent" class="col-xs-4 side-right"></label>
+                <div class="col-xs-4">
+                    <input id="txtCurrent" name="txtCurrent" data-bind="value: currentValue" maxlength="32" minlength="4" type="password" class="required form-control"/>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label data-trans="new_password" for="txtNew" class="col-xs-4 side-right"></label>
+                <div class="col-xs-4">
+                    <input id="txtNew" name="txtNew" data-bind="value: newValue" maxlength="32" minlength="4"  type="password" class="required form-control"/>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-xs-4 side-right" data-trans="confirm_password" for="txtConfirm"></label>
+                <div class="col-xs-4">
+                <input id="txtConfirm" name="txtConfirm" data-bind="value: confirmValue" maxlength="32" minlength="4" type="password" class="required form-control"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-buttons">
+            <input id="btnPwdApply" type="submit" formmethod="post" class="btn btn-primary" data-trans="apply"/>
+        </div>
+        <div class="form-information">
+            <p class="bg-info" data-trans="pwd_note"></p>
+        </div>
+        <div class="form-note">
+            <div class="notes-title">&nbsp;</div>
+            <ul class="notes-content">
+                <li data-trans="password_note_info"></li>
+                <li data-trans="password_note_valid"></li>
+                <li data-trans="password_note_input"></li>
+            </ul>
+        </div>
+    </div>
+</form>
+    </div>
+</div>
+</div>

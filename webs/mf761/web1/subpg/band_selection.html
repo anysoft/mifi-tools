@@ -1,0 +1,115 @@
+
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='advanced_settings'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+			<div class="nav_right">
+				<ul>
+					<li data-bind="visible: !isDataCard"><a href="#wlan_sleep" data-trans="sleep_mode"></a></li>
+					<li data-bind="visible: !isDataCard"><a href="#route_set" data-trans="router_setting"></a></li>
+					<li data-bind="visible: !isDataCard"><a href="#filter_main" data-trans="firewall"></a></li>
+					<li data-bind="visible:hasUpdateCheck" ><a href="#fota" data-trans="update_settings"></a></li>
+					<li data-bind="visible:hasDdns"><a href="#dynamic_dns" data-trans="DDNS"></a></li>
+					<li class="active"><a data-trans="network_band_selection" href="#band_selection"></a></li>
+                    <li data-bind="visible: !isDataCard"><a href="#more" data-trans="others"></a></li>
+				</ul>
+			</div>
+		</div>
+
+<div class="col-xs-10">
+
+<form id="frmBandpdate" role="form" >
+	<div class="form-body margin-top-20">
+		<div class="box-1">
+			<!--label>4G&nbsp;&nbsp;</label-->
+			<div class="col-xs-1">4G</div>
+			<div class="box-1-1">
+				<div><input type="checkbox" onchange="allCheck(this)" />All</div>
+				<div><input type="checkbox" name="4G" value="LTEB1" />LTE Band1</div>
+				<div><input type="checkbox" name="4G" value="LTEB2" />LTE Band2</div>
+				<div><input type="checkbox" name="4G" value="LTEB3" />LTE Band3</div>
+				<div><input type="checkbox" name="4G" value="LTEB4" />LTE Band4</div>
+				<div><input type="checkbox" name="4G" value="LTEB5" />LTE Band5</div>
+                <div><input type="checkbox" name="4G" value="LTEB6" />LTE Band6</div>
+                <div><input type="checkbox" name="4G" value="LTEB7" />LTE Band7</div>
+                <div><input type="checkbox" name="4G" value="LTEB8" />LTE Band8</div>
+                <div><input type="checkbox" name="4G" value="LTEB12" />LTE Band12</div>
+                <div><input type="checkbox" name="4G" value="LTEB13" />LTE Band13</div>
+                <div><input type="checkbox" name="4G" value="LTEB17" />LTE Band17</div>
+                <div><input type="checkbox" name="4G" value="LTEB18" />LTE Band18</div>
+				<div><input type="checkbox" name="4G" value="LTEB19" />LTE Band19</div>
+			</div>
+			<div class="box-1-2">
+				<div>&nbsp;</div>
+				<div><input type="checkbox" name="4G" value="LTEB20" />LTE Band20</div>
+				<div><input type="checkbox" name="4G" value="LTEB25" />LTE Band25</div>
+				<div><input type="checkbox" name="4G" value="LTEB26" />LTE Band26</div>
+				<div><input type="checkbox" name="4G" value="LTEB27" />LTE Band27</div>
+                <div><input type="checkbox" name="4G" value="LTEB28" />LTE Band28</div>
+                <div><input type="checkbox" name="4G" value="LTEB29" />LTE Band29</div>
+                <div><input type="checkbox" name="4G" value="LTEB34" />LTE Band34</div>
+                <div><input type="checkbox" name="4G" value="LTEB38" />LTE Band38</div>
+                <div><input type="checkbox" name="4G" value="LTEB39" />LTE Band39</div>
+                <div><input type="checkbox" name="4G" value="LTEB40" />LTE Band40</div>
+                <div><input type="checkbox" name="4G" value="LTEB41" />LTE Band41</div>
+				<div><input type="checkbox" name="4G" value="LTEB66" />LTE Band66</div>
+			</div>
+		</div>
+		<div class="box-1">
+			<div class="col-xs-1">2/3G</div>
+			<div class="box-1-1">
+				<div><input type="checkbox" onchange="allCheck1(this)" />All</div>
+				<div><input type="checkbox" name="3G" value="GSM850" />Gsm850</div>
+				<div><input type="checkbox" name="3G" value="GSM900" />Gsm900</div>
+				<div><input type="checkbox" name="3G" value="GSM1800" />Gsm1800</div>
+				<div><input type="checkbox" name="3G" value="GSM1900" />Gsm1900</div>
+				<div><input type="checkbox" name="3G" value="WB1" />WCDMA BAND1</div>
+                <div><input type="checkbox" name="3G" value="WB2" />WCDMA BAND2</div>
+                <div><input type="checkbox" name="3G" value="WB3" />WCDMA BAND3</div>
+                <div><input type="checkbox" name="3G" value="WB4" />WCDMA BAND4</div>
+                <div><input type="checkbox" name="3G" value="WB5" />WCDMA BAND5</div>
+                <div><input type="checkbox" name="3G" value="WB8" />WCDMA BAND8</div>
+			</div>
+		</div>
+		 <div class="form-buttons">
+            <input type="submit" data-trans="apply" class="btn btn-primary"/>
+        </div>
+		<div class="form-note">
+                	<div class="notes-title">&nbsp;</div>
+                	<ul class="notes-content">
+                    		<li data-trans="band_select_desc"></li>
+                	</ul>
+		</div>
+	</div>
+</form>
+</div>
+</div>
+</div>
+<script>
+			function allCheck(checkbox) {
+				document.getElementsByName("4G").forEach(function(item) {
+					if(item.getAttribute("disabled")==null){
+						item.checked=checkbox.checked;
+					}
+					
+				});
+			}
+			function allCheck1(checkbox) {
+				document.getElementsByName("3G").forEach(function(item) {
+					if(item.getAttribute("disabled")==null){
+						item.checked=checkbox.checked;
+					}
+				});
+			}
+</script>

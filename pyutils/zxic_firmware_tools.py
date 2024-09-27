@@ -61,6 +61,17 @@ def is_mtd4_squashfs_file(file_path):
     return False
 
 
+def get_file_size_in_kb(file_path):
+    try:
+        # 获取文件大小（以字节为单位）
+        size_in_bytes = os.path.getsize(file_path)
+        # 将字节转换为KB
+        size_in_kb = size_in_bytes / 1024
+        print(f"The file size is {size_in_kb} KB")
+    except FileNotFoundError:
+        print("File not found")
+
+
 # 从编程器固件或者 zloader中读取分区结构
 def get_partions_info_from_firmware(firmware_file_path):
     partitions = []
@@ -120,7 +131,7 @@ def split_firmware(firmware_file_path):
         mtd4_file_system = "unknown"
         if file_size == 8 * 1024 * 1024:
             mtd4_file_system = "squashfs"
-        elif file_size != 16 * 1024 * 1024:
+        elif file_size == 16 * 1024 * 1024:
             mtd4_file_system = "jffs2"
         else:
             print(f"{firmware_file_path} 似乎并不是一个 zxic 的编程器固件，文件大小必须是 8MB/16MB!")

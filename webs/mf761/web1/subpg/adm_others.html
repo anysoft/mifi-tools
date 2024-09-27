@@ -1,0 +1,322 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='advanced_settings'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+		    <div class="nav_right">
+		    <ul>
+				<li><a href="#wlan_sleep" data-trans="sleep_mode"></a></li>
+				<li><a href="#route_set" data-trans="router_setting"></a></li>
+				<li><a href="#filter_main" data-trans="firewall"></a></li>
+				<li data-bind="visible:hasUpdateCheck"><a href="#fota" data-trans="update_settings"></a></li>
+				<li data-bind="visible:hasDdns"><a href="#dynamic_dns" data-trans="DDNS"></a></li>      
+				<li  class="bandSelect"><a data-trans="network_band_selection" href="#band_selection"></a></li>
+			
+				<li class="active"><a href="#more" data-trans="others"></a></li>
+			</ul>
+			</div>
+		</div>
+        <div class="col-xs-10">
+			 <!--shenghao add begin for web AT function-->
+        <form id="frmAtCmd">
+            <div class="form-body">
+                <h3 data-trans="others_at_cmd" class="form-title"></h3>
+                <input id="txtAtCmd" name="txtAtCmd" style="height:30px;width:300px;maxlength:100px;border:1px solid #cccccc;border-radius:4px;outline: none" type="text"/>
+                <input data-trans="at_cmd_button" data-bind="click: executeAtCmd" type="button" class="btn btn-primary margin-right-20"/>
+                <br><br>
+                <textarea id="txtCmdRsp" name="txtCmdRsp" rows="6" cols="48" style="border:1px solid #cccccc;border-radius:4px;vertical-align:top"/>
+                <br><br>
+                <div class="col-xs-15">
+                    <input id="atCleanBtn" data-bind="click: cleanCon" data-trans="clean_button" type="button" class="btn btn-primary margin-right-20"/>
+                </div>
+            </div>
+        </form>
+        <!--shenghao add end for web AT function-->
+        <form id="frmRestoreReset">
+            <div class="form-body">
+                <h3 data-trans="others_restart_reset" class="form-title"></h3>
+				<div class="row form-group">
+                    <div data-trans="others_note_info" class="col-xs-12"></div>
+                </div>
+                <div class="row form-group">				    
+                    <div class="col-xs-12 align-right">
+                        <input data-trans="restart_button" data-bind="click: restart" type="button" class="btn btn-primary margin-right-20"/>
+                        <input data-trans="restore_button" data-bind="visible: currentUserInChildGroup() == false, click: restore" type="button" class="btn btn-primary margin-right-20"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <form id="frmtrunOffDevice" data-bind="visible: turnOffSupport">
+            <div class="form-body">
+                <h3 data-trans="others_turn_off" class="form-title"></h3>
+                <div class="row form-group">
+                    <div class="col-xs-12 align-right">
+                        <input data-bind="click: turnoff" data-trans="turnoff_button" type="button" class="btn btn-primary margin-right-20"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+		
+        <form data-bind="visible: fastbootSupport">
+            <div class="form-body">
+                <h3 class="form-title" data-trans="fastboot_setting"></h3>
+                <div class="row form-group">
+                    <label data-trans="fastboot_setting" class="col-xs-4 side-right"></label>
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-3" style="width: 26%;">
+                                <input id="fastEnable" name="fastboot" data-bind="checked: fastbootSetting, enable: fastbootEnableFlag" type="radio" value="1"/>
+                                <label data-trans="enable" for="fastEnable"></label>
+                            </div>
+                            <div class="col-xs-3">
+                                <input id="fastDisable" name="fastboot" data-bind="checked: fastbootSetting, enable: fastbootEnableFlag" type="radio" value="0"/>
+                                <label data-trans="disable" for="fastDisable"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-xs-12" data-trans="fastboot_note"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-xs-12 align-right">
+                        <input data-bind="click: saveFastBoot, enable: fastbootEnableFlag" data-trans="apply" type="button" class="btn btn-primary margin-right-20"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+		
+		<form id="sntpForm" data-bind="visible: SNTPSupport">
+			<div class="form-body">
+				<h3 class="form-title">SNTP</h3>
+				<div class="content">
+					<div class="row form-group">
+						<label class="col-xs-4 side-right" data-trans='local_current_time'></label>
+						<div class="col-xs-8">
+							<span class="span3" data-bind="text: localTime"></span>
+							<span>&nbsp;</span>
+							<span id="weekday" data-bind="text: day"></span>
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-xs-4 side-right" data-trans='time_set_mode' for="sntpSetTimeMode"></label>
+						<div class="col-xs-4">
+							<select id="sntpSetTimeMode" class="form-control" data-transid="time_set_time" data-bind="options: timeSetModes, value: currentMode, optionsText: transOption('time_set_time'), optionsValue: 'value', event:{change: changeSetTimeMode}"></select>
+						</div>					
+					</div>
+					<div id="manualSetTime" data-bind="visible: isManualSetTime">
+						<div class="row form-group">
+							<label class="col-xs-4 side-right" data-trans='time_set_time_manual'></label>							
+						
+							<div class="col-xs-8">
+									<select id="manualYear" data-bind="options: years, value: currentYear, optionsText: 'text', optionsValue: 'value', event:{change: initDateList}" style="display:inline-block; width:auto; padding-right:5px; padding-left:5px"  class="form-control"></select> 
+								    <label data-trans="year" for="manualYear" style="display:inline-block; width:auto; padding-right:0"></label>
+								
+								    <select id="manualMonth" data-bind="options: months, value: currentMonth, optionsText: 'text', optionsValue: 'value', event: {change: initDateList}" style="display:inline-block; width:auto; padding-right:5px; padding-left:5px" class="form-control"></select> 
+								    <label data-trans="month" for="manualMonth" style="display:inline-block; width:auto; padding-right:0"></label>
+								
+									<select id="manualDate" data-bind="options: dates, value: currentDate, optionsText: 'text', optionsValue: 'value'" style="display:inline-block; width:auto; padding-right:5px; padding-left:5px" class="form-control"></select> 
+								    <label data-trans="date" for="manualDate" style="display:inline-block; width:auto; padding-right:0"></label>
+								
+									<select id="manualHour" data-bind="options: hours, value: currentHour, optionsText: 'text', optionsValue: 'value'" style="display:inline-block; width:auto; padding-right:5px; padding-left:5px" class="form-control"></select> 
+								    <label data-trans="hour" for="manualHour" style="display:inline-block; width:auto; padding-right:0"></label>
+								
+									<select id="manualMinute" data-bind="options: minutes, value: currentMinute, optionsText: 'text', optionsValue: 'value'" style="display:inline-block; width:auto; padding-right:5px; padding-left:5px" class="form-control"></select> 
+									<label data-trans="minute" for="manualMinute" style="display:inline-block; width:auto; padding-right:0"></label>
+							</div>
+                        </div>						
+					</div>
+					<div id="autoSntpTime" data-bind="visible: isAutoSntpTime">
+						<div id="sntp_server0" class="row form-group">
+							<label data-trans='stnp_server1' for="sntp_server1_select" class="col-xs-4 side-right"></label>
+							<div class="col-xs-4">
+								<select id="sntp_server1_select" data-bind="options: serverList, value: currentServer0, optionsText: 'text', optionsValue: 'value', event: {change: changeServerSelect}" class="form-control"></select>
+							</div>
+							<div class="col-xs-4">
+							    <input id="sntp_other_server0" name="sntp_other_server0" data-bind="value:customServer0, visible:isOther0" type="text" class="required form-control"/>
+							</div>
+						</div>
+						<div id="sntp_server1" class="row form-group">
+							<label class="col-xs-4 side-right" data-trans='stnp_server2' for="stnp_server2_select"></label>
+							<div class="col-xs-4">
+								<select id="stnp_server2_select" data-bind="options: serverList, value: currentServer1, optionsText: 'text', optionsValue: 'value', event: {change: changeServerSelect}" class="form-control"></select>
+	                        </div>
+							<div class="col-xs-4">						
+    							<input id="sntp_other_server1" name="sntp_other_server1"  data-bind="value:customServer1, visible:isOther1" type="text" class="required form-control"/>
+							</div>
+						</div>
+						<div id="sntp_server2" class="row form-group">
+							<label data-trans='stnp_server3' for="stnp_server3_select" class="col-xs-4 side-right"></label>
+							<div class="col-xs-4">
+								<select id="stnp_server3_select" class="form-control" data-bind="options: serverList, value: currentServer2, optionsText: 'text', optionsValue: 'value', event: {change: changeServerSelect}"></select>
+							</div>
+							<div class="col-xs-4">
+								<input id="sntp_other_server2" name="sntp_other_server2" data-bind="value:customServer2, visible:isOther2" type="text" class="required form-control"/>
+							</div>
+						</div>
+						<div class="row form-group">
+							<label data-trans='time_zone' for="time_zone_select" class="col-xs-4 side-right"></label>
+							<div class="col-xs-4">
+								<select id="time_zone_select" data-bind="options: timeZones, value: currentTimeZone, optionsText: transOption('time_zone'), optionsValue: 'value'" data-transid="time_zone" class="form-control"></select>
+							</div>
+						</div>
+	
+					</div>		
+				</div>
+				<div class="form-buttons">
+					<input data-bind="" data-trans="apply" type="submit" formmethod="post" class="btn btn-primary margin-right-20"/>
+				</div>
+			</div>
+		</form>
+		
+        	<form class="setImei">
+            <div class="form-body">
+                <h3 class="form-title" data-trans="set_imei"></h3>
+				<div class="row form-group">
+					<label class="col-xs-4 side-right" for="id_imei_set" data-trans="imei"></label>
+	                <div class="col-xs-4">
+	                    <input type="text" name="imei_set_input" data-bind="value: imei_num" id="id_imei_set" class="required form-control" maxlength="15"/>
+	                </div>
+					<div class="form-buttons">
+						<input type="submit" data-bind="click: set_imei" class="btn btn-primary" style="margin-right:35px" data-trans="apply"/>
+				    </div>
+				</div>
+            </div>
+        </form>
+
+		<form data-bind="visible: hasOtherSIM && hasSIMCardChoose() == '1'">
+            <div class="form-body">
+                <h3 class="form-title" data-trans="SIMCardChoose"></h3>
+				<div class="row form-group">
+					<label class="col-xs-4 side-right" data-trans='currentSIM' ></label>
+					<div class="col-xs-4">
+						<span data-trans="currentSIMextrapolation" data-bind="visible:currentSIM0"></span>
+						<span data-trans="currentSIMinternally1" data-bind="visible:currentSIM1"></span>
+						<span data-trans="currentSIMinternally2" data-bind="visible:currentSIM2"></span>
+					</div>					
+				</div>
+				<div class="row form-group">
+					<label class="col-xs-4 side-right" data-trans='SIM_mode'></label>
+					<div class="col-xs-4">
+						<select id="swithMode" class="form-control">
+							<option value="0" data-trans="SIMCardManual"></option>
+							<option value="1" data-trans="SIMCardAuto"></option>
+						</select>
+					</div>					
+				</div>
+				<div class="row form-group">
+					<!-- <label class="col-xs-4 side-right" data-bind="visible:isman" data-trans="switch_cards"></label> -->
+					<!-- <label class="col-xs-4 side-right" data-bind="visible:isauto" data-trans="boot_card"></label> -->
+					<label class="col-xs-4 side-right"  data-trans="boot_card"></label>
+					<div class="col-xs-4">
+						<select id="swithCard" class="form-control">
+							<option value="0" data-trans="SIMextrapolation"></option>
+							<option value="1" data-trans="SIMinternally1"></option>
+							<option value="2" data-trans="SIMinternally2"></option>
+						</select>
+					</div>
+					<div class="col-xs-4" data-trans="SIMislock" data-bind="visible:SIMislock" id="id_sim_lock" ></div>					
+				</div>
+				<div class="row form-group" data-bind="visible:swithMode() == 1">
+					<label class="col-xs-4 side-right" data-trans="switch_running_detect"></label>
+					<div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <input id="runningEnable" name="switch_running" data-bind="checked:switchRunningDetect" type="radio" value="1"/>
+                                <label data-trans="enable" for="runningEnable"></label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input id="runningDisable" name="switch_running" data-bind="checked:switchRunningDetect" type="radio" value="0"/>
+                                <label data-trans="disable" for="runningDisable"></label>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-xs-4" data-trans="SIMislock" data-bind="visible:SIMislock"  id="id_sim_lock"></div>					
+				</div>
+                <div class="row form-group">
+                    <div class="col-xs-12 align-right">
+                        <input data-bind='click: saveSIMSwitch,enable: enableFlag' data-trans="apply" type="button" class="btn btn-primary margin-right-20"/>
+                    </div>
+                </div>
+				<div class="form-note">
+					<div class="notes-title">&nbsp;</div>
+					<ul class="notes-content">
+						<li><span data-trans="SIM_mode"></span>:<span data-trans="SIM_mode_divided"></span></li>
+						<li class="no-style">
+							<ul>
+								<li data-trans="SIMCardManualNote"></li>
+								<li data-trans="SIMCardNote"></li>
+							</ul>
+						</li>
+						<li><span data-trans="boot_card"></span>:<span data-trans="boot_card_note"></span> </li>
+						<li><span data-trans="switch_running_detect"></span>:<span data-trans="switch_running_detect_note"></span> </li>
+					</ul>
+				</div> 
+            </div>
+        </form>
+
+        	<form id="LockSim" data-bind="visible: hasLockSim() == '1'"><!--corem1120-->
+            <div class="form-body">
+                <h3 class="form-title" data-trans="unlock_sim"></h3>
+				<div class="row form-group">
+					<label class="col-xs-4 side-right" for="id_sim_unlock" data-trans="unlock_code"></label>
+					<div class="col-xs-4">
+						<div>
+							<input type="text" name="sim_unlock_input" data-bind="visible: simLockStatus() && simTimes()>0, value: unlock_sim_code" id="id_sim_unlock" class="required form-control" maxlength="16"/>
+							<label data-bind="visible: !simLockStatus()" style="color: #2a62bc" data-trans="unlocked_status" id="id_nlocked_status"> </label>
+						</div>
+						<div data-bind="visible: simLockStatus()" id="id_sim_times">
+							<p data-bind="visible: simTimes()>0" style="color: #2a62bc">
+								<span data-trans="unlock_num"></span>
+								<span data-bind="text: simTimes" id="id_span_sim_times"></span>
+							</p>
+							<label data-bind="visible: simTimes()==0" style="color: red" data-trans="network_locked_zero_times"> </label>
+						</div>
+					</div>
+					<div class="form-buttons">
+						<input type="submit" data-bind="visible: simLockStatus() && simTimes()>0, click: sim_unlock" class="btn btn-primary" style="margin-right:35px" data-trans="apply"/>
+					</div>
+					</div>
+				</div>
+			</form>
+        <div class="form-body">
+            <div class="content margin-top-20 line-height-30">
+                <div class="row">
+                    <a href="#pin_mode">
+                        <div data-trans="pin_management" class="col-xs-3 arrow-right">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+		<form class="setTTLForm">
+			<div class="row form-group">
+				<label class="col-xs-4 side-right" data-trans='TTL' for="daylight_saving_TTL_select"></label>
+				<div class="col-xs-4">
+					<select id="daylight_saving_TTL_select" class="form-control">
+						<option value="32">32</option>
+						<option value="64">64</option>
+						<option value="65">65</option>
+						<option value="128">128</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-buttons">
+				<input data-bind="" data-trans="apply" type="submit" class="btn btn-primary margin-right-20"/>
+			</div>
+		</form>
+    </div>
+</div>
+</div>
