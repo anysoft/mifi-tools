@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title></title>
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='css/csn.css?random=" + Math.random() + "' />");
+        document.write("<link rel='stylesheet' type='text/css' href='css/bt_strp.css?random=" + Math.random() + "' />");
+        document.write("<link rel='stylesheet' type='text/css' href='css/com.css?random=" + Math.random() + "' />");
+    </script>
+    <link href="favicon.ico" rel="shortcut icon" />
+    <!--[if lt IE 9]><script type="text/javascript">document.write("<script type='text/javascript' rc='js/3rd/html5shiv.js?random=" + Math.random() + "'></s" + "cript>");document.write("<script type='text/javascript' rc='js/3rd/respond.js?random=" + Math.random() + "'></s" + "cript>");</script><![endif]-->
+</head>
+
+<body>
+    <div class="container" id="topContainer">
+        <div id="langLogoBar" class="row">
+            <div class="col-xs-4">
+                <a href="index.html">
+                    <script type="text/javascript">
+                        document.write("<img src='pic/res_logo_web.png?random=" + Math.random() + "' />");
+                    </script>
+                </a>
+                <!--span class="center-block" id="webui_title"></span-->
+            </div>
+            <div id="statusBar" style="display: none;" class="col-xs-8 text-right">
+                <!-- <span id="networkType" title="network_type" i18n="true" data-bind="text: networkType" class="statusItem"></span>-->
+                <!-- <span id="operator" title="network_provider" i18n="true" data-bind="text: networkOperator" class="statusItem"></span>--><span id="OTA" title="ota_title" i18n="true" data-bind="visible:isShowFotaNewversionIcon()" class="statusItem"><a onclick="return showOTAAlert();"><script type="text/javascript">document.write("<img src='pic/res_update.gif?random=" + Math.random() + "' class='paddingbottom6' />");</script></a></span>
+                <span id="signal_strength" title="signal_strength" i18n="true" class="statusItem"><i data-bind="attr:{'class': signalCssClass}" class="signal">&nbsp;</i></span><span id="connection_status" title="connection_status" i18n="true" class="statusItem"><i data-bind="attr:{'class': connectionCssClass}" class="icon_connection">&nbsp;</i></span>
+                <span id="rj45_connection_status" title="rj45_connection_status" i18n="true" data-bind="visible: isShowRj45ConnectionIcon" class="statusItem"><i data-bind="attr:{'class': rj45ConnectionCssClass}" class="icon_connection">&nbsp;</i></span>
+                <span id="sms_unread_count" title="sms_unread_count" i18n="true" data-bind="visible: smsUnreadCount() > 0 || showSmsDeleteConfirm()" style="display: none; position: relative;" class="statusItem">
+                    <a onclick="return gotoSmsList();" href="javascript: void(0)">
+                        <script type="text/javascript">
+                            document.write("<img data-bind='visible: smsUnreadCount() > 0 && !showSmsDeleteConfirm()' src='./pic/msg_unread.png?random=" + Math.random() + "' class='paddingbottom6'/>");
+                            document.write("<img data-bind='visible: showSmsDeleteConfirm()' src='./pic/msg_full.gif?random=" + Math.random() + "' class='paddingbottom6'/>");
+                        </script><sup data-bind="visible: smsUnreadCount() > 0, text: smsUnreadCount" class="smsUnreadCount"></sup></a>
+                    </span>
+                <span id="statusItemSimStatus" title="sim_status" i18n="true" class="statusItem"><img data-bind="attr: {src: simStatus}" class="paddingbottom6" /></span><span id="roamingStatus" title="roaming_status" i18n="true" data-bind="visible: roamingStatus() == 'R'"
+                    style="display: none;" class="statusItem"><script type="text/javascript">document.write("<img src='./pic/res_roaming.png?random=" + Math.random() + "' class='paddingbottom6'/>");</script>			</span>
+                <span id="wifi_status" title="wifi_status" i18n="true" data-bind="visible: hasWifi" class="statusItem">
+                                <!--img class="paddingbottom6" id="wifi_status_img" data-bind="attr: {src: wifiStatusImg}"/--><i class="wifi_status" data-bind="attr:{'class': wifiStatusCssClass}">&nbsp;</i></span><span title="battery_level"
+                    i18n="true" data-bind="visible: hasBattery" class="statusItem"><img id="batteryCharging" data-bind="attr: {src: batteryPers}" class="paddingbottom6"/></span></div>
+        </div>
+        <div id="manageBar" class="row">
+            <div id="manageContainer" class="col-xs-12 text-right"><span id="logout"><a data-trans="modify_password" href="#pwd_mode" data-bind="visible:showLogout()" class="margin-right-10"></a><a id="logoutlink" data-trans="logout" href="javascript:void(0)" data-bind="click:logout,visible:showLogout() " style="display: none;" class="margin-right-10"></a></span>
+                <select id="language" data-bind="options: languages, value: currentLan, optionsText: 'text', optionsValue: 'value', event:{ change: langChangeHandler}" class="marginright10"></select>
+            </div>
+        </div>
+    </div>
+    <div id="indexContainer" class="container">
+        <div id="mainContainer" style="min-height: 450px;">
+            <div id='container'></div>
+        </div>
+    </div>
+    <div id="footer" style="border-top:1px solid #dddddd" class="container margin-top-5">
+        <span data-trans='copyright'></span> &nbsp;&nbsp;&nbsp;
+    </div>
+    <div id='result-overlay'>
+        <div class='header'></div><br/>
+        <div class="text-center">
+            <div>
+                <div id="result-image"></div>
+            </div>
+            <div id="result_wording"></div>
+        </div>
+    </div>
+    <div id='loading'>
+        <div class='header'><span id="loadMsg"></span></div><br/>
+        <div class="text-center">
+            <div><span id="loading_wording" class="message"></span></div><img id="loadingImg" src="pic/res_loading.gif?bG9hZGluZy5naWY=" />
+            <div id="loading_container"></div>
+        </div>
+    </div>
+    <div id='progress'>
+        <div class='header'><span id="barMsg"></span></div><br/>
+        <div class="progress-content">
+            <div class="progress-bar-container">
+                <div id="bar" class="progress-bar"></div>
+                <div id="barValue" class="progress-bar-value"></div>
+            </div>
+            <div id="progress_container" class="progress-prompt"></div>
+        </div>
+    </div>
+    <!-- confirm content -->
+    <div id='confirm'>
+        <div class='header'><span id="popTitle"></span></div>
+        <div id="confirm-message-container">
+            <div class='icon'><img id='confirmImg' /></div>
+            <div class="confirm-message">
+                <div class='message'></div>
+                <div class='promptDiv'><input id="promptInput" name="promptInput" type="text" maxlength="25" class="width190" /><br/><label class="promptErrorLabel colorRed"></label></div>
+            </div>
+        </div>
+        <div class='buttons'><input id='okbtn' type="button" data-trans='ok' class="btn btn-default simplemodal-close" /><input id='yesbtn' type="button" data-trans='yes' class="btn btn-default " /><input id='nobtn' type="button" data-trans='no' class="btn btn-default simplemodal-close"
+            /></div>
+    </div>
+    <div id='popupSettingWindow'>
+        <div class='header'>
+            <p class="tag-popup-close">
+                <a href="javascript:hidePopupSettingWindow();"></a>
+            </p>
+        </div>
+        <div id="htmlContainer" class="modal-body"></div>
+    </div>
+    <div id="buttom-bubble"></div>
+    <script type="text/x-jquery-tmpl" id="newMessagePopTmpl">
+        <div class="bubbleItem ${report}" id="${mark}">
+            <h3><span data-trans="${titletrans}">${title}</span> ${name}
+                <a href="javascript:void(0);" data-targetid="${mark}" class="bubbleCloseBtn"></a>
+            </h3>
+            <div class="bubbleContainer">
+                <div class="bubbleContent">${content}</div>
+                <div class="bubbleDatetime">${datetime}</div>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript">
+        document.write("<script type='text/javascript' data-main='js/main' src='js/3rd/require-jquery.js?random=" + Math.random() + "'></s" + "cript>");
+    </script>
+</body>
+
+</html>

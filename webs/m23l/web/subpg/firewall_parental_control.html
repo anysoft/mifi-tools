@@ -1,0 +1,268 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='parental_control'></h1>
+            </div>
+        </div>
+    </div>
+    
+	<div class="row">
+	<div class="col-xs-2">
+		<div class="nav_right">
+			<ul>
+				<li data-bind="css:{ active : currentPage() == pages.MAIN}"><a data-bind="click: backToMainHandler" data-trans="pc_children_group" href="javascript: void(0)"></a></li>
+				<li data-bind="css:{ active : currentPage() == pages.MANAGE}"><a data-bind="click: manageHandler" data-trans="pc_children_group_manage" href="javascript: void(0)"></a></li>
+				<li data-bind="css:{ active : currentPage() == pages.RULE}"><a data-bind="click: openRulePage" data-trans="pc_internet_rule" href="javascript: void(0)"></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-xs-10">
+	
+	    <form id="pc_main_form" data-bind="visible: currentPage() == pages.MAIN">
+		    <h3 data-trans='pc_children_group' class="form-title"></h3>
+            <div class="form-body">
+                <div class="content">
+                    <div data-trans="pc_no_children_device" data-bind="visible: childGroupList().length == 0" class="expend-desc"></div>
+                    <div data-bind="foreach: childGroupList">
+                        <div class="device-block">
+                            <span data-bind="text: hostname, attr: {title: hostname}" class="device-block-desc"></span>
+                        </div>
+                    </div>
+                    <p data-trans="pc_children_group_desc" class="text-info expend-desc"></p>
+                </div>
+                <div class="form-note">
+                    <div class="notes-title">&nbsp;</div>
+                    <ul class="notes-content">
+                        <li data-trans="parent_control_note_kids"></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+	
+	    <form id="pc_children_group_form" style="display: none;" data-bind="visible: currentPage() == pages.MANAGE">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 data-trans="pc_children_group" style="margin-top: 6px;"></h2>
+                    </div>
+                    <!--div class="col-md-6 text-right">
+                        <a class="btn btn-default" data-trans="back" data-bind="click: backToMainHandler"></a>
+                    </div-->
+                </div>
+                <div class="content">
+                    <div>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th width="60" data-trans="station_number"></th>
+                                <th data-trans="host_name"></th>
+                                <th width="100"></th>
+                                <th width="200" data-trans="mac_address"></th>
+                                <th width="150" data-trans="pc_action"></th>
+                            </tr>
+                            </thead>
+                            <tbody data-bind="foreach: childGroupList">
+                            <tr data-bind="css: {odd: $index() % 2 == 0, even: $index() % 2 != 0}">
+                                <td data-bind="text: $index()+1"></td>
+                                <td>
+                                    <span data-bind="text: hostname, attr: {id: 'hostname_txt_'+$index()}"></span>
+                                    <input type="text" data-bind="attr: {id: 'hostname_input_'+$index()}" maxlength="32" style="display: none;" class="form-control">
+                                </td>
+                                <td>
+                                    <a data-bind="click: $root.editHostNameHandler, attr: {id: 'edit_btn_'+$index()}" class="cursorhand"><img src="./pic/res_edit.png" height="25"></a>
+                                    <a data-bind="click: $root.saveHostNameHandler, attr: {id: 'save_btn_'+$index()}" style="display: none;" class="cursorhand"><img height="25" src="./pic/res_save.png"></a>
+                                    <a data-bind="click: $root.cancelEditHostNameHandler, attr: {id: 'cancel_btn_'+$index()}" class="cursorhand" style="display: none;"><img height="25" src="./pic/res_cancel.png"></a>
+                                </td>
+                                <td data-bind="text: mac"></td>
+                                <td><a data-trans="pc_remove" data-bind="click: $root.removeChildGroupHandler" class="btn btn-primary btn-sm"></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div data-trans="pc_no_children_device" data-bind="visible: childGroupList().length == 0" class="expend-desc"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 data-trans="pc_current_attached_devices"></h2>
+                    </div>
+                </div>
+                <div class="content">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th width="60" data-trans="station_number"></th>
+                            <th data-trans="host_name"></th>
+                            <th width="200" data-trans="mac_address"></th>
+                            <th width="150" data-trans="pc_action"></th>
+                        </tr>
+                        </thead>
+                        <tbody data-bind="foreach: attachedDevices">
+                        <tr data-bind="css: {odd: $index() % 2 == 0, even: $index() % 2 != 0}">
+                            <td data-bind="text: $index()+1"></td>
+                            <td data-bind="text: hostName"></td>
+                            <td data-bind="text: macAddress"></td>
+                            <td>
+                                <div data-bind="visible: inChildGroup" data-trans="pc_in_child_group"></div>
+                                <div data-bind="visible: !inChildGroup"><a data-trans="pc_add" data-bind="click: $root.addChildGroupHandler" class="btn btn-primary btn-sm"></a></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div trans="no_data" data-bind="visible: attachedDevices().length == 0" class="expend-desc"></div>
+                </div>
+                <div class="form-note">
+                    <div class="notes-title">&nbsp;</div>
+                    <ul class="notes-content">
+                        <li data-trans="parent_control_note_manage"></li>
+                    </ul>
+                </div>
+			</div>
+        </form>
+	
+	    <form id="pc_time_limited_form" style="display: none;" data-bind="visible: currentPage() == pages.RULE">
+		    <h3 data-trans='pc_time_limited' class="form-title"></h3>
+            <div class="form-body">
+                <div class="content">
+                    <table class="table header-center">
+                        <thead>
+                        <tr>
+                            <td>&nbsp;</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td>
+                            <td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
+                        </tr>
+                        </thead>
+                        <tbody id="pc_time_limited_tbody">
+                        <tr>
+                            <td data-trans="sun" class="col-head"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr>
+                            <td data-trans="mon" class="col-head"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr>
+                            <td data-trans="tues" class="col-head"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr>
+                            <td data-trans="wed" class="col-head"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr>
+                            <td data-trans="thur" class="col-head"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr>
+                            <td data-trans="fri" class="col-head"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        <tr>
+                            <td data-trans="sat" class="col-head"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row-fluid expend-desc">
+                    <div style="line-height: 20px">
+                        <span class="pc_time_block forbid_time">&nbsp;</span><span data-trans="pc_forbid_time" class="margin-left-10 margin-right-20"></span>
+                        <span class="pc_time_block margin-left-15">&nbsp;</span><span data-trans="pc_allow_time" class="margin-left-10"></span>
+                    </div>
+                    <p data-trans="pc_setting_desc" class="text-info"></p>
+                    <p data-trans="pc_not_save" data-bind="visible: notSave" class="text-danger"></p>
+                </div>
+                <div class="form-buttons">
+                    <input type="button" data-trans="save" id="save_time_limited" data-bind="visible: currentUserInChildGroup() == false, click: saveTimeLimitedHandler" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+		
+	    <form id="pc_site_white_list_form" style="display: none;" data-bind="visible: currentPage() == pages.RULE">
+		    <h3 data-trans='pc_site_white_list' class="form-title"></h3>
+            <div class="form-body">
+                <div class="content">
+                        <div data-bind="visible: currentUserInChildGroup() == false">
+                        <input id="openAddSiteBtn" type="button" data-trans="add" data-bind="disable: disableAdd, click: openAddSitePopoverHandler" class="btn btn-primary">
+                        <input id="deleteSelectedBtn" type="button" data-trans="pc_remove" data-bind="disable: selectedIds().length == 0, click: removeSelectedWhiteSite" class="btn btn-primary">
+                    <input type="button" data-trans="pc_remove_all" data-bind="disable: siteList().length == 0, click: removeAllWhiteSite" class="btn btn-primary">
+                    </div>
+                    <div class="">
+                        <table style="table-layout: fixed; word-wrap: break-word; word-break: break-all;" class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th width="40" align="center" data-bind="visible: currentUserInChildGroup() == false">
+                                    <p id="pc_white_list_check_all" target="pb_white_list" data-bind="click: checkboxClickHandler" class="checkbox checkboxToggle">
+                                        <input type="checkbox" name="siteId" value="1" />
+                                    </p>
+                                </th>
+                                <th width="170" data-trans="pc_name"></th>
+                                <th data-trans="pc_link"></th>
+                                <!--th width="150" data-trans="pc_action" data-bind="visible: currentUserInChildGroup() == false"></th-->
+                            </tr>
+                            </thead>
+                            <tbody id="pb_white_list" data-bind="foreach: siteList">
+                            <tr data-bind="css: {odd: $index() % 2 == 0, even: $index() % 2 != 0}">
+                                <td data-bind="visible: $root.currentUserInChildGroup() == false">
+                                    <p data-bind="click: $root.checkboxClickHandler" class="checkbox">
+                                        <input type="checkbox" target="pc_white_list_check_all" name="siteId" data-bind="value: id, checked: $root.selectedIds"/>
+                                    </p>
+                                </td>
+                                <td data-bind="text: name"></td>
+                                <td data-bind="text: site"></td>
+                                <!--td data-bind="visible: $root.currentUserInChildGroup() == false"><a class="btn btn-primary btn-sm" data-trans="pc_remove" data-bind="click: $root.removeWhiteSite"></a></td-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div data-trans="no_data" data-bind="visible: siteList().length == 0" class="expend-desc"></div>
+                </div>
+                <div class="form-note">
+                    <div class="notes-title">&nbsp;</div>
+                    <ul class="notes-content">                        
+                        <li data-trans="parent_control_note_time"></li>
+                        <li data-trans="parent_control_note_whitelist"></li>
+						<ul>                        
+                            <li data-trans="parent_control_note_siteName"></li>
+                            <li data-trans="parent_control_note_siteLink"></li>
+                        </ul>
+						<li data-trans="firewal_note"></li>
+                    </ul>
+                </div>
+			</div>
+        </form>	
+		
+	</div>
+	</div>
+	
+</div>
+<script id="addNewSiteTmpl" type="text/x-jquery-tmpl">
+<div>
+    <div class="popover_title" data-trans="pc_add_white_site"></div>
+    <div class="popover_content content">
+        <form id="whiteSiteAddForm" role="form" class="form-horizontal">
+            <div class="popover_row form-group">
+                <label data-trans="pc_name" for="siteName" class="col-xs-4 control-label"></label>
+                <div class="col-xs-8">
+                    <input id="siteName" type="text" maxlength="20" class="form-control" name="siteName">
+                </div>
+            </div>
+            <div class="popover_row form-group">
+                <label data-trans="pc_link" for="siteLink" class="col-xs-4 control-label"></label>
+                <div class="col-xs-8">
+                    <input id="siteLink" type="text" name="siteLink" maxlength="100" class="form-control required">
+                </div>
+            </div>
+            <div class="popover_row text-right">
+                <input type="submit" formmethod="post" data-trans="save"  class="btn btn-primary"/>
+                <a data-trans="pc_leave" class="btn btn-primary popover-close"></a>
+            </div>
+        </form>
+    </div>
+</div>
+</script>

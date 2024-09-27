@@ -1,0 +1,68 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='net_setting'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+		<div class="nav_right">
+			<ul>
+			    <li class="active"><a data-trans="dial_mode" href="#conn_set"></a></li>
+				<li><a data-trans="net_select" href="#network_choose"></a></li>
+				<li><a data-trans="apn_setting" href="#cgdcont_set"></a></li>
+			</ul>
+		</div>
+	    </div>
+
+	    <div class="col-xs-10">
+
+<form>
+<div class="form-body">
+	    <h3 data-trans="dial_mode" class="form-title"></h3>
+    <div class="content">
+            <div class="row form-group">
+                <label data-trans='dial_mode' class="col-xs-3 side-right"></label>
+                <div class="col-xs-2" style="padding: 0px 0px;width: 16.8%;">
+                    <input id='auto_mode' type="radio" name="modeGroup" value="auto_dial" data-bind="checked: selectMode, enable: enableFlag" />
+                    <label for='auto_mode' data-trans='auto_select'></label>
+                </div>
+                <div class="col-xs-2">
+                    <input id='manual_mode' type="radio" name="modeGroup"  value="manual_dial" data-bind="checked: selectMode, enable: enableFlag" />
+                    <label for='manual_mode' data-trans='manual_select'></label>
+                </div>
+            </div>
+
+            <div data-bind="visible: selectMode() == 'auto_dial'" class="row form-group">
+                <div class="col-xs-3"></div>
+                <div class="col-xs-8 label-absolute">
+                    <p id="roamBtn" data-bind="css:{'checkbox_selected': isAllowedRoaming()=='on'}, click: setAllowedRoaming" manualControl="true"class="checkbox floatleft margintop5 checkboxToggle">
+                        <input type="checkbox" id="isAllowedRoaming" value="on" data-bind="checked:isAllowedRoaming()=='on'" />
+                    </p>
+                    <label for="isAllowedRoaming" data-trans="dial_roaming_remind" class="update_inline floatleft lineheight25"></label>
+                </div>
+            </div>
+    </div>
+    <div class="form-buttons">
+        <input type="button" data-bind='click: save, enable: enableFlag' data-trans="apply" class="btn btn-primary"/>
+    </div>
+    <div class="form-note">
+        <div class="notes-title">&nbsp;</div>
+        <ul class="notes-content">
+			<li data-trans="diconneted_operate_note"></li>
+            <li data-trans="dial_setting_note_automatic"></li>
+            <li data-trans="dial_setting_note_manual"></li>
+        </ul>
+    </div>
+</div>
+</form>
+    </div>
+</div>
+</div>

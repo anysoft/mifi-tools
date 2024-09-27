@@ -1,0 +1,158 @@
+<div id="innerContainer">
+	<div class="row header-row">
+		<div class="col-xs-1">
+			<a href="#main">
+				<img alt="" src="pic/direct-back.png">
+			</a>
+		</div>
+		<div class="col-xs-11">
+			<div class="form-title">
+				<h1 data-trans='httpshare'></h1>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-2">
+		    <div class="nav_right">
+				<ul>
+					<li><a data-trans="sd" href="#sdcard"></a></li>
+					<li class="active"><a data-trans="httpshare" href="#httpshare"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-xs-10">
+<div id="httpshare_form">
+	<div class="form-body">
+		<div class="content">
+            <div class="row margin-top-20">
+                <div class="col-xs-9">
+                    <label data-trans="sd_path" class="col-xs-2 margin-top-5"></label>
+					<div class="col-xs-5">
+						<input id="sd_path" disabled="disabled" noAction="true" type="text" value="" class="form-control"/>
+					</div>
+
+                </div>
+                <div class="col-xs-3 margin-top-5 push-right">
+                    <span id="sd_volumn">
+                    <span id="sd_volumn_used"></span>/<span id="sd_volumn_total"></span></span>
+                </div>
+            </div>
+			<div id="fileControlSection" class="margin-top-10 row">
+				<ul class="row">
+					<li id="rootBtnLi" onclick="enterFolder('');" class="cursor-pointer marginleft5">
+						<img src="./pic/returnhome.jpg" class="sdcard_back_img"/>
+						<span data-trans="root"></span>
+					</li>
+					<li id="backBtnLi" onclick="backFolder();" class="cursor-pointer marginleft5">
+						<img src="./pic/return.jpg" class="sdcard_back_img"/>
+						<span data-trans="back"></span>
+					</li>
+					<li id="newFolderBtnLi" onclick="openCreateNewFolderClickHandler();" class="cursor-pointer marginleft5">
+						<img src="./pic/new_folder.jpg" class="hand_cursor_img"/>
+						<span data-trans="new"></span>
+					</li>
+					<li id="createNewFolderLi" style="display: none;">
+					    <form id="createNewFolderForm">
+						<div class="col-xs-4 row margin-right-10">
+							<input id="newFolderName" name="newFolderName" maxlength="25" type="text" class="required form-control"/>
+						</div>
+						<input id="createNewFolderBtn" data-trans="create" type="submit" formmethod="post" class="btn btn-primary"/>
+						<input id="cancelCreateNewFolderBtn" data-trans="cancel" onclick="cancelCreateNewFolderClickHandler();" type="button" class="btn btn-primary"/>
+						<div id="createNewFolderErrorLabel" class="colorRed"></div>
+						</form>
+					</li>
+				</ul>
+			</div>
+			<div id="fileListSection">
+				<table style="word-wrap: break-word; word-break: break-all;" class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th width="40" class="sd_guest_hide_th">
+								<p id="fileList-checkAll" target="fileList_container" class="checkbox checkboxToggle">
+									<input id="checkbox-all" type="checkbox"/>
+								</p>
+							</th>
+							<th width="28"></th>
+							<th data-trans="sd_name" width="170"></th>
+							<th data-trans="sd_rename" class="sd_guest_hide_th"></th>
+							<th data-trans="download"></th>
+							<th data-trans="sd_file_size" ></th>
+							<th data-trans="sd_update_time" width="150"></th>
+						</tr>
+					</thead>
+					<tbody id="fileList_container"></tbody>
+				</table>
+			</div>
+			<div id="fileListButtonSection">
+				<div class="pager ko-grid-pageLinks"></div>
+                <div class="form-buttons">
+                    <input id="delete_file_button" data-trans="delete" onclick="deleteBtnClickHandler();" type="button" class="btn btn-primary "/>
+					<input id="go_to_login_button" data-trans="back_to_login" onclick="gotoLogin();" type="button" class="btn btn-primary hide"/>
+                </div>
+			</div>
+			<div id="uploadSection">
+				<iframe id="fileUploadIframe" name="fileUploadIframe" frameborder="0" height="0" scrolling="no" width="0" style="height:0px;width:0px;"></iframe>
+				<form id="fileUploadForm" name="fileUploadForm" action="" enctype="multipart/form-data" method="post" target="fileUploadIframe">
+                    <input id="path_SD_CARD_time" name="path_SD_CARD_time" type="hidden" value=""/>
+                    <input id="path_SD_CARD_time_unix" name="path_SD_CARD_time_unix" type="hidden" value=""/>
+					<input id="fileField" name="filename" dir="ltr" maxlength="200" type="file"/>
+					<div class="fileUploadDiv">
+						<input id="fileUploadApplyBtn" name="fileUploadApplyBtn" data-trans="upload" onclick="fileUploadSubmitClickHandler();" type="button" class="btn btn-primary margin-left-5 margin-top-2"/>
+					</div>
+                    <div class="clear"></div>
+				</form>
+			</div>
+		</div>
+        <div class="form-note">
+            <div class="notes-title">&nbsp;</div>
+            <ul class="notes-content">
+                <li data-trans="note_upload_not_refresh"></li>
+                <li data-trans="note_upload_single_file_2g"></li>
+				<li data-trans="note_upload_filelenth_25"></li>
+            </ul>
+        </div>
+	</div>
+</div>
+		</div>
+	</div>
+</div>
+<script type="text/x-jquery-tmpl" id="sdFileItemTmpl">
+{{each(i, item) data }}
+<tr class="${trClass}">
+	{{if readwrite}}<td align="center"><p class="checkbox"><input type="checkbox" target="fileList-checkAll" value="${fileName}"/></p></td>{{/if}}
+	<td {{if fileType=='folder'}}class="cursor-pointer folderTd" filename='${fileName}'{{/if}}><span class="mini-icon ${fileType==''?'':'icon-'+fileType}"></span></td>
+	<td style="width:170px;" {{if fileType=='folder'}}class="cursor-pointer folderTd" filename='${fileName}'{{/if}}>${fileName}</td>
+	{{if readwrite}}<td align='center'><a href="javascript: void(0)" filename='${fileName}' class="fileRename" data-trans='sd_rename'></a></td>{{/if}}
+	<td align='center'>{{if fileType!='folder'}}<a href="${URLEncode(filePath)}" filelocal="${filePath}" target="_blank" class="mini-icon icon-download"></a>{{/if}}</td>
+	<td align='center'>${fileSize}</td>
+	<td align='center'>${lastUpdateTime}</td>
+</tr>
+{{/each}}
+</script>
+<script type="text/x-jquery-tmpl" id="pagerTmpl">
+{{each(i, item) data.pagers }}
+	{{if isPrev}}
+        {{if pageNum==0}}
+	        <a href="javascript:void(0)" class="ko-grid-pager-disabled" data-trans="prev_page" onclick="javascript:void(0)"></a>
+        {{else}}
+            <a href="javascript:void(0)" data-trans="prev_page" onclick="pagerItemClickHandler('${pageNum}')"></a>
+        {{/if}}
+	{{else isDot}}
+	<span>...</span>
+	{{else isNext}}
+        {{if pageNum - 1==data.total}}
+            <a href="javascript:void(0)" data-trans="next_page" onclick="javascript:void(0)" class="ko-grid-pager-disabled"></a>
+        {{else}}
+            <a href="javascript:void(0)" data-trans="next_page" onclick="pagerItemClickHandler('${pageNum}')"></a>
+        {{/if}}
+	{{else}}
+	<a href="javascript:void(0)" onclick="pagerItemClickHandler('${pageNum}')" class="${isActive?'ko-grid-pager-selected':''}">${pageNum}</a>
+	{{/if}}
+{{/each}}
+<div style="width: 170px;" class="input-group margin-left-10">
+	<label data-trans="page" class="input-group-addon"></label>
+	<input id="ko-grid-input-page" type="text" class="form-control">
+	<label data-trans="go" onclick="(function() {var num = $('#ko-grid-input-page').val(); if(/^[0-9]+$/.test(num)&&(parseInt(num)-1) <= ${data.total}&&(parseInt(num)-1) >= 0){pagerItemClickHandler(parseInt(num));}})()" class="input-group-addon cursorhand">
+	</label>
+</div>
+</script>

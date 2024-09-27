@@ -1,0 +1,100 @@
+<div id="innerContainer">
+    <div class="row header-row">
+        <div class="col-xs-1">
+            <a href="#main">
+                <img alt="" src="pic/direct-back.png">
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div class="form-title">
+                <h1 data-trans='advanced_settings'></h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <div class="nav_right">
+                <ul>
+                    <li><a href="#wlan_sleep" data-trans="sleep_mode"></a></li>
+                    <li><a href="#route_set" data-trans="router_setting"></a></li>
+                    <li><a href="#filter_main" data-trans="firewall"></a></li>
+                    <li><a href="#fota" data-trans="update_settings"></a></li>
+                    <li><a href="#sdcard" data-bind="visible: isSupportSD" data-trans="sd" class="c2175FF"></a></li>
+                    <li><a href="#dynamic_dns" data-trans="DDNS"></a></li>
+                    <li><a data-trans="network_band_selection"
+                                                              href="#band_selection"></a></li>
+                    <li><a data-trans="tr069" href="#tr069"></a></li>
+                    <li class="active"><a data-trans="vpn" href="#vpn"></a></li>
+                    <li><a href="#more" data-trans="others"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xs-10">
+            <form id="frmVpn" role="form">
+                <h3 class="form-title" data-trans="vpn_setting"></h3>
+                <div class="form-body margin-top-20">
+                    <div class="content">
+                        <div class="row form-group">
+                            <label data-trans="vpnswitch" for="vpn_switch_btn" class="col-xs-4 side-right" style="top:40px"></label>
+                            <div class="col-xs-4" style="margin:0 auto;text-align: center;">
+                                <div id="vpn_switch_btn" href="javascript: void(0)" data-bind="attr:{'class': vpnSwitchCssClass}, click: submitAction"></div>
+                                <div>
+                                    <label id="vpn_switch_txt" class="vpn_switch_txt"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label data-trans="vpnname" for="vpn_name" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4">
+                                <input id="vpn_name" name="vpn_name" data-bind="value: vpn_name" maxlength="255"
+                                       type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="vpnpassword" for="txtVpnPassword" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4">
+                                <input id="pwdVpnPassword" name="pwdVpnPassword" data-bind="value: vpn_password,visible:!showVpnPassword()"
+                                       maxlength="255" type="password" class="form-control" />
+                                <input id="txtVpnPassword" name="txtVpnPassword" data-bind="value: vpn_password,visible:showVpnPassword()"
+                                       maxlength="255" type="text" class="form-control" />
+                                <div class="margin-top-10">
+                                    <p data-bind="css:{'checkbox_selected': showVpnPassword()}, click: showVpnPasswordHandler"
+                                       manualControl="true" class="checkbox">
+                                        <input id="showVpnPassword" data-bind="checked:showVpnPassword" type="checkbox"/>
+                                    </p>
+                                    <label data-trans="display_password" for="showVpnPassword" class="floatleft margintop5 lineheight25"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans="vpnserverip" for="vpn_server_ip" class="col-xs-4 side-right"></label>
+                            <div class="col-xs-4">
+                                <input id="vpn_server_ip" name="vpn_server_ip" data-bind="value: vpn_server_ip" maxlength="255"
+                                       type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label data-trans='vpn_type' class="col-xs-4 side-right" for='vpnType'></label>
+                            <div class="col-xs-4">
+                                <select id="vpnType" data-bind="options: modes, value: vpn_type, optionsText: transOption('vpn_types'),optionsValue: 'value'"
+                                        data-transid='vpn_types' class="required form-control"></select>
+                            </div>
+                        </div>
+
+                        <!--div class="form-buttons">
+                            <input type="submit" data-trans="apply" class="btn btn-primary" />
+                        </div-->
+                        <div class="form-note">
+                            <div class="notes-title">&nbsp;</div>
+                            <ul class="notes-content">
+                                <li data-trans="vpn_tip_1"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

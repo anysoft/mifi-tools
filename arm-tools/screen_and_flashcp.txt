@@ -1,0 +1,23 @@
+adb shell mount -o remount,rw /
+
+adb push mtd4.new /tmp
+
+adb push flashcp /tmp
+
+adb push screen /tmp
+
+mount -o remount,rw /
+
+cd /
+
+/sbin/fota_release_space.sh
+
+
+cd /tmp
+
+chmod +x flashcp screen
+
+./screen -dmS mtd_flash 
+./flashcp ./mtd4.new /dev/mtd4 -v
+
+reboot
