@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMEI 工具</title>
+  <script>
+    function calculateIMEI(imei) {
+      if (imei.length !== 14) {
+        return "IMEI长度不正确";
+      }
+      let sum = 0;
+      for (let i = 0; i < 14; i++) {
+        let num = parseInt(imei.charAt(i));
+        if (i % 2 === 0) {
+          sum += num;
+        } else {
+          let doubleNum = num * 2;
+          sum += Math.floor(doubleNum / 10) + (doubleNum % 10);
+        }
+      }
+      let checkDigit = (10 - (sum % 10)) % 10;
+      return imei + checkDigit.toString();
+    }
+
+    // 生成随机的 86 开头 IMEI
+    function generateRandomIMEI() {
+      let randomDigits = '';
+      for (let i = 0; i < 12; i++) {
+        randomDigits += Math.floor(Math.random() * 10);
+      }
+      return '86' + randomDigits;
+    }
+
+    function generateAndDisplayIMEI() {
+      let randomIMEI = generateRandomIMEI();
+      let completeIMEI = calculateIMEI(randomIMEI);
+      console.log("随机生成的 IMEI（14 位）: " + randomIMEI);
+      console.log("完整的 IMEI（15 位）: " + completeIMEI);
+      document.getElementById("complete-imei").value = completeIMEI;
+    }
+   function patchIMEI() {
+     let imei = document.getElementById("unpatched-imei").value
+     let completeIMEI = calculateIMEI(imei);
+     console.log("完整的 IMEI（15 位）: " + completeIMEI);
+     document.getElementById("patched-imei").value = completeIMEI;
+   }
+  </script>
+</head>
+<body>
+  <h1>随机生成IMEI</h1>
+  <button onclick="generateAndDisplayIMEI()">生成随机IMEI</button>
+  <br>
+  <div id="random-imei"></div>
+  <br>
+  <label for="complete-imei">完整的 IMEI（15 位）: </label>
+  <input type="text" id="complete-imei" size="15" readonly>
+  
+  <h1>IMEI补全</h1>
+  <button onclick="patchIMEI()">补全IMEI</button>
+  <br>
+  <div id="patch-imei"></div>
+  <br>
+  <label for="complete-imei">待补全的IMEI: </label></br>
+  <input type="text" id="unpatched-imei" size="15" ></br>
+  <label for="complete-imei">完整IMEI: </label></br>
+  <input type="text" id="patched-imei" size="15" readonly>
+</body>
+</html>

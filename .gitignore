@@ -1,3 +1,11 @@
 /output/
 /backups/*
 .idea
+/platform-tools
+xunyou.py
+pyutils/__pycache__/
+mtd4*
+full.bin.*
+*full.bin
+test.py
+mf650.py
