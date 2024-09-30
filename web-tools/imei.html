@@ -24,16 +24,23 @@
     }
 
     // 生成随机的 86 开头 IMEI
-    function generateRandomIMEI() {
+    function generateRandomIMEI(prefix) {
       let randomDigits = '';
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 14-prefix.length; i++) {
         randomDigits += Math.floor(Math.random() * 10);
       }
-      return '86' + randomDigits;
+      return prefix + randomDigits;
     }
 
     function generateAndDisplayIMEI() {
-      let randomIMEI = generateRandomIMEI();
+      let country = document.getElementById("selectBoxCountry").value;
+      console.log("所选的国家是: " + country);
+      let iot = document.getElementById("selectBoxIOT").value;
+      console.log("IOT: " + iot);
+      let fac = document.getElementById("selectBoxFAC").value;
+      console.log("fac: " + fac);
+
+      let randomIMEI = generateRandomIMEI(country + iot + fac);
       let completeIMEI = calculateIMEI(randomIMEI);
       console.log("随机生成的 IMEI（14 位）: " + randomIMEI);
       console.log("完整的 IMEI（15 位）: " + completeIMEI);
@@ -53,6 +60,33 @@
   <br>
   <div id="random-imei"></div>
   <br>
+  国家:
+  <select id="selectBoxCountry">
+    <option value="86">中国(86)</option>
+    <option value="45">澳门(45)</option>
+    <option value="35">美国(35 )</option>
+    <option value="50">澳大利亚(50)</option>
+    <option value="70">新加坡(70)</option>
+  </select>
+  IOT提供商:
+  <select id="selectBoxIOT">
+    <option value="">随机</option>
+    <option value="3683">影腾(3683)</option>
+    <option value="4051">讯优(4051)</option>
+    <option value="4628">书海/京东云(4628)</option>
+    <option value="5152">长城(5152 )</option>
+    <option value="7835">海尔(7835)</option>
+    <option value="4495">昌实(4495)</option>
+    <option value="3780">莱浦(3780)</option>
+    <option value="3683">阿乐卡(3683)</option>
+  </select>
+  组装地区(FAC):
+  <select id="selectBoxFAC">
+    <option value="">随机</option>
+    <option value="06">06</option>
+    <option value="07">07</option>
+  </select>
+
   <label for="complete-imei">完整的 IMEI（15 位）: </label>
   <input type="text" id="complete-imei" size="15" readonly>
   
