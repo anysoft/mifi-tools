@@ -6,29 +6,31 @@ borad_name="$2"
 
 # 检查参数是否为空
 if [ -z "$version" ]; then
-    default_parameter=./squashfs-root/etc_ro/default/default_parameter_user
-    manufacturer=$(cat $default_parameter | grep rootdev_modeldes | awk -F "=" '{print $2}')
+    default_parameter_user=./squashfs-root/etc_ro/default/default_parameter_user
+    default_parameter=./squashfs-root/etc_ro/default/default_parameter_*
+
+    manufacturer=$(cat $default_parameter | grep rootdev_manufacturer | awk -F "=" '{print $2}'|uniq)
     if [ "$manufacturer" = "SZXF" ]; then
         if [ -z "$borad_name" ]; then
             borad_name="mf761"
         fi
         
     elif [ "$manufacturer" = "DEMO" ]; then
-        remo=$(cat $default_parameter | grep "remo_" | wc -l)
+        echo $manufacturer
+	remo=$(cat $default_parameter | grep "remo_" | wc -l)
         if [ "$remo" -gt 0 ]; then
             manufacturer="REMO"
             if [ -z "$borad_name" ]; then
                 borad_name="1869y"
             fi
         fi
-        alk=$(cat $default_parameter | grep "remo_" | wc -l)
-        if [ "$alk" -gt 0 ]; then
+        alk=$(cat $default_parameter | grep "=ALK" | wc -l)
+	if [ "$alk" -gt 0 ]; then
             manufacturer="ALK"
             if [ -z "$borad_name" ]; then
                 borad_name="uz901"
             fi
-        fi
-        
+	fi 
     fi
 fi
 
