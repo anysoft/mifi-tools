@@ -124,7 +124,7 @@ def sub_menu_firmware_tools(msg=''):
 
     elif user_input == '2':
         print('替换默认配置')
-        target_image_path = input(f'请输入目标配置目录:')
+        # target_image_path = input(f'请输入目标配置目录:')
         nv_replace.main(os.path.join(output_path, rootfs_dir_name))
         continue_any_key()
 
@@ -339,13 +339,14 @@ def push_arm_tools(applets=['flashcp', 'nohup']):
 def flash_mtd(mtd_file_path, mtd='mtd4', mode='flashcp'):
     mtd_file_name = os.path.basename(mtd_file_path)
     if os.path.exists(mtd_file_path):
+        # todo 校验各分区 magic 防止刷错分区
         if mtd == 'mtd4':
             if not zxic_firmware_tools.is_mtd4_squashfs_file(mtd_file_path):
                 print(f'{mtd} 必须是 squashfs 镜像格式才支持刷写！')
                 return
-        # todo 校验分区大小是否一致
+        # todo 校验分区大小是否一致 防止刷错分区
         adb_tools.run_adb_command('mount -o remount,rw /')
-        print(f'当前刷机模式为{mode}....')
+        print(f'当前刷机模式为:{mode},刷写分区:{mtd}....')
         flash_command = f'/tmp/nohup /tmp/dd if=/tmp/{mtd_file_name} of=/dev/{mtd} conv=fsync 2>&1 >/mnt/userdata/{mtd}.log'
         if mode == 'dd':
             push_arm_tools(['dd', 'nohup'])
@@ -356,7 +357,17 @@ def flash_mtd(mtd_file_path, mtd='mtd4', mode='flashcp'):
         adb_tools.push_file(mtd_file_path, f'/tmp/{mtd_file_name}')
         adb_tools.run_adb_command('/sbin/fota_release_space.sh')
         adb_tools.run_adb_command("kill -9 $(ps -ef | grep -v init | grep -v adbd | grep -ve '\[' | grep -v 'sh -l' | grep -v '/bin/login' |grep -v PID| grep -v grep |awk '{print $1}')")
+        print("已开始刷写分区，请耐心等待(耗时大概30~50s)......")
         adb_tools.run_adb_command(flash_command)
+        print(f'{mtd_file_name} 已刷入 {mtd}分区,开始校验文件一致性....')
+        out = adb_tools.run_adb_command(f"md5sum /tmp/{mtd_file_name}" + " |awk '{print $1}'")
+        md5_mtd_file = out.decode('utf-8').split('\r\r\n')[0]
+        out = adb_tools.run_adb_command(f"md5sum /dev/{mtd}" + " |awk '{print $1}'")
+        md5_mtd_block = out.decode('utf-8').split('\r\r\n')[0]
+        if md5_mtd_block != md5_mtd_file:
+            print(f"分区刷写校验失败，{md5_mtd_block} != {md5_mtd_file} 请重新刷写该分区")
+        else:
+            print(f"分区刷写校验成功，{md5_mtd_block} ==> {md5_mtd_file} ")
 
 
 def main():

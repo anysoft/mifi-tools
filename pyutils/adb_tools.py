@@ -77,7 +77,7 @@ def push_file(source, target):
     return run_adb_command([source, target], op='push')
 
 
-def run_adb_command(command, op='shell'):
+def run_adb_command(command, op='shell', print_log=False):
     args = [adb_exe_path, op]
     if isinstance(command, list):
         args.extend(command)
@@ -89,12 +89,15 @@ def run_adb_command(command, op='shell'):
 
     # if len(out) > 0:
     #     out = out.strip()
+    response = b''
     if process.returncode != 0:
-        if err != b'':
-            print(f"{err.decode('utf-8')}")
+        response = err
     else:
-        if out != b'':
-            print(f"{out.decode('utf-8')}")
+        response = out
+    if response != b'' and print_log:
+        lines = response.decode('utf-8').split('\r\r\n')
+        lines = [line for line in lines if line]
+        print(lines)
     return out
 
 
