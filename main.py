@@ -59,7 +59,7 @@ def sub_menu_firmware_tools(msg=''):
     # print(f'        将squashfs格式的rootfs回写到 `编程器固件` 或 `mtd4` 分区\n')
 
     print(f'【squashfs 解压/压缩】')
-    print(f'UNPACK) `squashfs`镜像解压为`squashfs_root`目录    PACK) `squashfs`镜像解压为`squashfs_root`目录\n')
+    print(f'UNPACK) `squashfs`镜像解压为`squashfs_root`目录    PACK) `squashfs_root`目录 压缩为 `squashfs`镜像文件\n')
 
     print(f'【rootfs目录修改】')
     print(f'1) 对比输出文件目录树及删除特定文件')
@@ -115,6 +115,20 @@ def sub_menu_firmware_tools(msg=''):
         rootfs_image_path = input(f'请输入待回写的 squashfs 格式的 rootfs 镜像文件:')
         target_image_path = input(f'请输入回写目标文件(编程器固件/mtd4分区文件):')
         zxic_firmware_tools.repack_firmware(rootfs_image_path, target_image_path)
+        continue_any_key()
+
+    elif user_input == 'UNPACK':
+        print('squashfs 镜像解压')
+        rootfs_image_path = input(f'请输入需要解压的 squashfs 镜像文件路径:')
+        if os.path.exists(rootfs_image_path):
+            zxic_firmware_tools.unsquashfs(rootfs_image_path)
+        continue_any_key()
+
+    elif user_input == 'PACK':
+        print('squashfs-root 打包镜像')
+        squashfs_rootfs_dir_path = input(f'请输入需要压缩打包的 squashfs-root 目录:')
+        if os.path.exists(squashfs_rootfs_dir_path):
+            zxic_firmware_tools.mksquashfs(squashfs_rootfs_dir_path)
         continue_any_key()
 
     elif user_input == '1':

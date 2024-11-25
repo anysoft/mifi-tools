@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+import subprocess
 import sys
 import struct
 
@@ -320,7 +321,52 @@ def repack_firmware(input_image, target_file_path, replaced_image_file_index=0):
                     file_a.write(input_image_file_content)
                     print(f'{input_image} 已回写到 {target_file_path}')
     
-    
+def unsquashfs(target_file_path):
+    if not os.path.exists(target_file_path):
+        print(f'suqashfs 镜像 {target_file_path} 文件不存在')
+        return
+    args = ["unsquashfs"]
+    parent_directory = os.path.dirname(target_file_path)
+    target_squashfs_root_dir = os.path.join(parent_directory,"squashfs-root")
+
+    args.extend(f' -d {target_squashfs_root_dir}')
+    args.extend(target_file_path)
+    process = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    if process.returncode != 0:
+        response = err
+    else:
+        response = out
+    if response != b'':
+        lines = response.decode('utf-8').split('\r\r\n')
+        lines = [line for line in lines if line]
+        print(lines)
+    return out
+
+def mksquashfs(target_squashfs_root_dir):
+    if not os.path.exists(target_squashfs_root_dir):
+        print(f'suqashfs-root 目录 {target_squashfs_root_dir} 文件不存在')
+        return
+
+    # mksquashfs squashfs-root/ new.squashfs -no-xattrs  -b 262144 -comp xz -Xbcj armthumb -Xdict-size 256KiB  -no-sparse
+    args = ["mksquashfs"]
+    parent_directory = os.path.dirname(target_squashfs_root_dir)
+    new_squashfs_root_file = os.path.join(parent_directory,"new.squashfs")
+
+    args.extend(f' {target_squashfs_root_dir}')
+    args.extend(f' {new_squashfs_root_file}')
+    args.extend(' -no-xattrs  -b 262144 -comp xz -Xbcj armthumb -Xdict-size 256KiB  -no-sparse')
+    process = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    if process.returncode != 0:
+        response = err
+    else:
+        response = out
+    if response != b'':
+        lines = response.decode('utf-8').split('\r\r\n')
+        lines = [line for line in lines if line]
+        print(lines)
+    return out
 
 
 
