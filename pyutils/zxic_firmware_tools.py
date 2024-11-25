@@ -329,8 +329,9 @@ def unsquashfs(target_file_path):
     parent_directory = os.path.dirname(target_file_path)
     target_squashfs_root_dir = os.path.join(parent_directory,"squashfs-root")
 
-    args.extend(f' -d {target_squashfs_root_dir}')
-    args.extend(target_file_path)
+    args.append("-d")
+    args.append(target_squashfs_root_dir)
+    args.append(target_file_path)
     process = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = process.communicate()
     if process.returncode != 0:
@@ -353,9 +354,27 @@ def mksquashfs(target_squashfs_root_dir):
     parent_directory = os.path.dirname(target_squashfs_root_dir)
     new_squashfs_root_file = os.path.join(parent_directory,"new.squashfs")
 
-    args.extend(f' {target_squashfs_root_dir}')
-    args.extend(f' {new_squashfs_root_file}')
-    args.extend(' -no-xattrs  -b 262144 -comp xz -Xbcj armthumb -Xdict-size 256KiB  -no-sparse')
+    args.append(target_squashfs_root_dir)
+    args.append(new_squashfs_root_file)
+    # args.append('-no-xattrs  -b 262144 -comp xz -Xbcj armthumb -Xdict-size 256KiB  -no-sparse')
+    args.append("-no-xattrs")
+
+    args.append("-b")
+    args.append("262144")
+
+    args.append("-comp")
+    args.append("xz")
+
+    args.append("-Xbcj")
+    args.append("armthumb")
+
+    args.append("-Xdict-size")
+    args.append("256KiB")
+
+    args.append("-no-sparse")
+    args.append("-noappend")
+
+    # arg =' '.join(args)
     process = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = process.communicate()
     if process.returncode != 0:
