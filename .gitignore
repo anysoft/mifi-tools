@@ -9,3 +9,4 @@ full.bin.*
 *full.bin
 test.py
 mf650.py
+squashfs-root/
